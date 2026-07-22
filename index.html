@@ -2,20 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vanegas Store - Sistema de Ventas y Pedidos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a237e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Vanegas Store">
+    <link rel="manifest" href="manifest.json">
+    <title>Vanegas Store - Sistema de Ventas</title>
     
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f2f5;
             color: #333;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .login-screen {
@@ -24,18 +31,19 @@
             background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #000000 100%);
             display: flex; align-items: center; justify-content: center;
             z-index: 10000;
+            padding: 20px;
         }
 
         .login-container {
-            background: white; border-radius: 20px; padding: 40px;
-            width: 90%; max-width: 450px;
+            background: white; border-radius: 20px; padding: 30px 25px;
+            width: 100%; max-width: 400px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
         }
 
         .login-logo {
-            width: 150px; height: 150px;
-            margin: 0 auto 25px;
+            width: 120px; height: 120px;
+            margin: 0 auto 20px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden;
@@ -44,15 +52,15 @@
         }
 
         .login-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .login-logo svg { width: 100px; height: 100px; }
+        .login-logo svg { width: 80px; height: 80px; }
 
-        .login-title { font-size: 2rem; font-weight: 700; color: #1a237e; margin-bottom: 10px; }
-        .login-subtitle { color: #666; margin-bottom: 30px; font-size: 0.95rem; }
+        .login-title { font-size: 1.8rem; font-weight: 700; color: #1a237e; margin-bottom: 8px; }
+        .login-subtitle { color: #666; margin-bottom: 25px; font-size: 0.9rem; }
 
-        .login-form .form-group { margin-bottom: 20px; text-align: left; }
-        .login-form label { display: block; font-weight: 600; margin-bottom: 8px; color: #444; font-size: 0.9rem; }
+        .login-form .form-group { margin-bottom: 15px; text-align: left; }
+        .login-form label { display: block; font-weight: 600; margin-bottom: 6px; color: #444; font-size: 0.9rem; }
         .login-form input {
-            width: 100%; padding: 14px 18px;
+            width: 100%; padding: 14px 16px;
             border: 2px solid #e0e0e0; border-radius: 10px;
             font-size: 1rem; transition: all 0.3s; outline: none;
         }
@@ -65,7 +73,7 @@
             font-size: 1.1rem; font-weight: 600;
             cursor: pointer; transition: all 0.3s; margin-top: 10px;
         }
-        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(26,35,126,0.4); }
+        .login-btn:active { transform: scale(0.98); }
 
         .login-error {
             background: #ffebee; color: #c62828;
@@ -73,104 +81,106 @@
             margin-bottom: 20px; display: none; font-weight: 600;
         }
 
-        .login-footer { margin-top: 25px; color: #999; font-size: 0.85rem; }
+        .login-footer { margin-top: 20px; color: #999; font-size: 0.8rem; }
 
         .main-app { display: none; }
         .main-app.active { display: block; }
 
         .header {
             background: linear-gradient(135deg, #1a237e, #283593);
-            color: white; padding: 15px 30px;
+            color: white; padding: 12px 15px;
             display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            flex-wrap: wrap; gap: 10px;
+            flex-wrap: wrap; gap: 8px;
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .header-left { display: flex; align-items: center; gap: 15px; }
+        .header-left { display: flex; align-items: center; gap: 10px; }
 
         .logo {
-            width: 50px; height: 50px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden; background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         .logo img { width: 100%; height: 100%; object-fit: cover; }
-        .logo svg { width: 35px; height: 35px; }
+        .logo svg { width: 30px; height: 30px; }
 
-        .header h1 { font-size: 1.5rem; font-weight: 700; }
+        .header h1 { font-size: 1.2rem; font-weight: 700; }
         .header h1 span { color: #00bcd4; }
 
-        .header-right { display: flex; align-items: center; gap: 20px; }
+        .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
         .user-info {
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px;
             background: rgba(255,255,255,0.15);
-            padding: 8px 16px; border-radius: 20px;
+            padding: 6px 12px; border-radius: 20px;
+            font-size: 0.85rem;
         }
 
         .user-avatar {
-            width: 35px; height: 35px;
+            width: 30px; height: 30px;
             background: linear-gradient(135deg, #00bcd4, #e91e63);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.9rem;
+            font-weight: 700; font-size: 0.8rem;
         }
 
         .logout-btn, .settings-btn {
             background: rgba(255,255,255,0.2);
             color: white; border: none;
-            padding: 8px 16px; border-radius: 8px;
+            padding: 6px 12px; border-radius: 8px;
             cursor: pointer; font-weight: 600;
             transition: all 0.3s;
-            display: flex; align-items: center; gap: 6px;
+            display: flex; align-items: center; gap: 5px;
+            font-size: 0.85rem;
         }
-        .logout-btn:hover, .settings-btn:hover { background: rgba(255,255,255,0.3); }
+        .logout-btn:active, .settings-btn:active { background: rgba(255,255,255,0.3); }
 
         .header-date {
-            font-size: 0.9rem; opacity: 0.9;
+            font-size: 0.8rem; opacity: 0.9;
             background: rgba(255,255,255,0.15);
-            padding: 8px 16px; border-radius: 20px;
+            padding: 6px 12px; border-radius: 20px;
         }
 
         .nav-tabs {
-            background: white; padding: 0 20px;
+            background: white; padding: 0 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: flex; gap: 5px; overflow-x: auto;
+            display: flex; gap: 3px; overflow-x: auto;
+            position: sticky; top: 66px; z-index: 99;
         }
 
         .nav-tab {
-            padding: 15px 25px; border: none; background: none;
-            font-size: 1rem; font-weight: 600; color: #666;
+            padding: 12px 16px; border: none; background: none;
+            font-size: 0.9rem; font-weight: 600; color: #666;
             cursor: pointer; border-bottom: 3px solid transparent;
             transition: all 0.3s; white-space: nowrap;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 6px;
         }
-        .nav-tab:hover { color: #1a237e; background: #f5f5ff; }
+        .nav-tab:active { background: #f5f5ff; }
         .nav-tab.active { color: #1a237e; border-bottom-color: #1a237e; background: #f5f5ff; }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 25px 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 15px 10px; }
         .section { display: none; }
         .section.active { display: block; }
 
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px; margin-bottom: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px; margin-bottom: 15px;
         }
 
         .stat-card {
-            background: white; border-radius: 16px; padding: 22px;
+            background: white; border-radius: 14px; padding: 15px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            display: flex; align-items: center; gap: 15px;
-            transition: transform 0.2s;
+            display: flex; align-items: center; gap: 12px;
         }
-        .stat-card:hover { transform: translateY(-3px); }
 
         .stat-icon {
-            width: 55px; height: 55px; border-radius: 14px;
+            width: 45px; height: 45px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 26px; flex-shrink: 0;
+            font-size: 22px; flex-shrink: 0;
         }
         .stat-card:nth-child(1) .stat-icon { background: #e3f2fd; }
         .stat-card:nth-child(2) .stat-icon { background: #fff3e0; }
@@ -178,55 +188,54 @@
         .stat-card:nth-child(4) .stat-icon { background: #fce4ec; }
 
         .stat-info h3 {
-            font-size: 0.85rem; color: #777;
-            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+            font-size: 0.7rem; color: #777;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px;
         }
-        .stat-info .value { font-size: 1.5rem; font-weight: 700; color: #1a237e; }
+        .stat-info .value { font-size: 1.1rem; font-weight: 700; color: #1a237e; }
         .stat-info .value.profit { color: #2e7d32; }
         .stat-info .value.capital { color: #e65100; }
 
         .monthly-summary {
-            background: white; border-radius: 16px; padding: 20px 25px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 25px;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+            background: white; border-radius: 14px; padding: 15px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 20px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
         }
 
-        .summary-item { display: flex; flex-direction: column; gap: 5px; }
-        .summary-item .label { font-size: 0.8rem; color: #777; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-        .summary-item .val { font-size: 1.3rem; font-weight: 700; }
+        .summary-item { display: flex; flex-direction: column; gap: 3px; }
+        .summary-item .label { font-size: 0.7rem; color: #777; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        .summary-item .val { font-size: 1rem; font-weight: 700; }
         .summary-item .val.ventas { color: #1565c0; }
         .summary-item .val.capital { color: #e65100; }
         .summary-item .val.utilidad { color: #2e7d32; }
         .summary-item .val.transacciones { color: #6a1b9a; }
 
         .summary-title {
-            font-size: 1rem; font-weight: 700; color: #1a237e;
-            grid-column: 1 / -1; padding-bottom: 10px;
-            border-bottom: 2px solid #e8eaf6; margin-bottom: 5px;
+            font-size: 0.9rem; font-weight: 700; color: #1a237e;
+            grid-column: 1 / -1; padding-bottom: 8px;
+            border-bottom: 2px solid #e8eaf6; margin-bottom: 3px;
         }
 
         .panels {
-            display: grid; grid-template-columns: 400px 1fr;
-            gap: 25px; align-items: start;
+            display: grid; grid-template-columns: 1fr;
+            gap: 15px;
         }
-        @media (max-width: 1000px) { .panels { grid-template-columns: 1fr; } }
 
         .panel {
-            background: white; border-radius: 16px; padding: 25px;
+            background: white; border-radius: 14px; padding: 18px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
         .panel-title {
-            font-size: 1.2rem; font-weight: 700; color: #1a237e;
-            margin-bottom: 20px; padding-bottom: 12px;
+            font-size: 1.1rem; font-weight: 700; color: #1a237e;
+            margin-bottom: 15px; padding-bottom: 10px;
             border-bottom: 3px solid #e8eaf6;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #444; font-size: 0.9rem; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color: #444; font-size: 0.85rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 11px 14px;
+            width: 100%; padding: 12px 12px;
             border: 2px solid #e0e0e0; border-radius: 10px;
             font-size: 0.95rem; transition: border-color 0.3s, box-shadow 0.3s;
             outline: none; background: #fafafa; font-family: inherit;
@@ -234,154 +243,148 @@
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: #3949ab; box-shadow: 0 0 0 3px rgba(57,73,171,0.15); background: white;
         }
-        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group textarea { resize: vertical; min-height: 70px; }
 
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
         .totals-box {
-            background: #f5f5f5; border-radius: 12px; padding: 15px;
-            margin-top: 10px; margin-bottom: 15px;
+            background: #f5f5f5; border-radius: 12px; padding: 12px;
+            margin-top: 10px; margin-bottom: 12px;
         }
 
         .total-line {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 6px 0; font-size: 0.95rem;
+            padding: 5px 0; font-size: 0.9rem;
         }
         .total-line:not(:last-child) { border-bottom: 1px dashed #ddd; }
         .total-line .lbl { font-weight: 600; color: #555; }
         .total-line .val { font-weight: 700; }
         .total-line.venta .val { color: #1565c0; }
         .total-line.capital .val { color: #e65100; }
-        .total-line.utilidad .val { color: #2e7d32; font-size: 1.1rem; }
+        .total-line.utilidad .val { color: #2e7d32; font-size: 1rem; }
 
         .btn {
-            padding: 12px 24px; border: none; border-radius: 10px;
-            font-size: 1rem; font-weight: 600; cursor: pointer;
-            transition: all 0.3s;
+            padding: 13px 20px; border: none; border-radius: 10px;
+            font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s;
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             width: 100%;
         }
+        .btn:active { transform: scale(0.98); }
         .btn-primary {
             background: linear-gradient(135deg, #3949ab, #1a237e);
             color: white; box-shadow: 0 4px 15px rgba(26,35,126,0.3);
         }
-        .btn-primary:hover { box-shadow: 0 6px 20px rgba(26,35,126,0.45); transform: translateY(-1px); }
-
         .btn-success {
             background: linear-gradient(135deg, #43a047, #2e7d32);
             color: white; box-shadow: 0 4px 15px rgba(46,125,50,0.3);
         }
-        .btn-success:hover { box-shadow: 0 6px 20px rgba(46,125,50,0.45); transform: translateY(-1px); }
-
         .btn-whatsapp {
             background: linear-gradient(135deg, #25d366, #128c7e);
             color: white; box-shadow: 0 4px 15px rgba(37,211,102,0.3);
         }
-        .btn-whatsapp:hover { box-shadow: 0 6px 20px rgba(37,211,102,0.45); transform: translateY(-1px); }
-
         .btn-danger {
             background: linear-gradient(135deg, #e53935, #c62828);
             color: white; box-shadow: 0 4px 15px rgba(198,40,40,0.3);
         }
-        .btn-danger:hover { box-shadow: 0 6px 20px rgba(198,40,40,0.45); }
-
         .btn-secondary {
             background: #f5f5f5; color: #333; border: 2px solid #e0e0e0;
         }
-        .btn-secondary:hover { background: #e0e0e0; }
-
-        .btn-sm { padding: 6px 14px; font-size: 0.8rem; width: auto; }
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-sm { padding: 8px 12px; font-size: 0.8rem; width: auto; }
+        .btn-group { display: flex; gap: 8px; margin-top: 12px; }
 
         .delivery-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 25px; align-items: start;
+            display: grid; grid-template-columns: 1fr;
+            gap: 15px;
         }
-        @media (max-width: 900px) { .delivery-grid { grid-template-columns: 1fr; } }
 
         .whatsapp-config {
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-            border-radius: 16px; padding: 20px;
-            margin-bottom: 20px; border: 2px solid #a5d6a7;
+            border-radius: 14px; padding: 15px;
+            margin-bottom: 15px; border: 2px solid #a5d6a7;
         }
 
         .whatsapp-config h3 {
-            color: #128c7e; margin-bottom: 15px;
+            color: #128c7e; margin-bottom: 12px;
             display: flex; align-items: center; gap: 8px;
+            font-size: 1rem;
         }
 
         .whatsapp-number-display {
-            background: white; padding: 12px 16px; border-radius: 10px;
+            background: white; padding: 10px 14px; border-radius: 10px;
             margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
         }
 
         .whatsapp-number-display .number {
-            font-size: 1.2rem; font-weight: 700; color: #128c7e;
+            font-size: 1.1rem; font-weight: 700; color: #128c7e;
         }
 
         .preview-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 15px; padding-bottom: 10px;
+            margin-bottom: 12px; padding-bottom: 10px;
             border-bottom: 2px solid #e0e0e0;
         }
 
-        .preview-header h4 { color: #1a237e; display: flex; align-items: center; gap: 8px; }
+        .preview-header h4 { color: #1a237e; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
 
         .preview-content {
-            background: white; border-radius: 10px; padding: 15px;
-            font-family: 'Courier New', monospace; font-size: 0.9rem;
-            line-height: 1.6; white-space: pre-wrap; color: #333;
+            background: white; border-radius: 10px; padding: 12px;
+            font-family: 'Courier New', monospace; font-size: 0.85rem;
+            line-height: 1.5; white-space: pre-wrap; color: #333;
             border-left: 4px solid #25d366;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
         .delivery-history-item {
-            background: white; border-radius: 12px; padding: 15px;
-            margin-bottom: 12px; border-left: 4px solid #25d366;
+            background: white; border-radius: 12px; padding: 12px;
+            margin-bottom: 10px; border-left: 4px solid #25d366;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .delivery-history-item .dh-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px; flex-wrap: wrap; gap: 5px;
         }
 
-        .delivery-history-item .dh-client { font-weight: 700; color: #1a237e; }
-        .delivery-history-item .dh-date { font-size: 0.85rem; color: #999; }
-        .delivery-history-item .dh-product { color: #555; margin-bottom: 5px; }
+        .delivery-history-item .dh-client { font-weight: 700; color: #1a237e; font-size: 0.9rem; }
+        .delivery-history-item .dh-date { font-size: 0.75rem; color: #999; }
+        .delivery-history-item .dh-product { color: #555; margin-bottom: 4px; font-size: 0.85rem; }
         .delivery-history-item .dh-total { font-weight: 700; color: #2e7d32; }
 
         .status-badge {
-            padding: 4px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600;
+            padding: 3px 10px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600;
         }
         .status-pending { background: #fff3e0; color: #e65100; }
         .status-sent { background: #e8f5e9; color: #2e7d32; }
 
         .table-controls {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 15px; flex-wrap: wrap; gap: 10px;
+            margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
         }
 
         .search-box {
-            padding: 9px 14px; border: 2px solid #e0e0e0;
-            border-radius: 10px; font-size: 0.9rem; width: 220px;
+            padding: 10px 12px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 0.9rem; width: 100%;
             outline: none; transition: border-color 0.3s;
         }
         .search-box:focus { border-color: #3949ab; }
 
         .date-filter {
-            padding: 9px 14px; border: 2px solid #e0e0e0;
+            padding: 10px 12px; border: 2px solid #e0e0e0;
             border-radius: 10px; font-size: 0.9rem; outline: none;
+            width: 100%;
         }
 
         .table-wrapper { overflow-x: auto; border-radius: 10px; }
 
-        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 
         thead th {
             background: #1a237e; color: white;
-            padding: 13px 12px; text-align: left;
+            padding: 10px 8px; text-align: left;
             font-weight: 600; white-space: nowrap;
             position: sticky; top: 0;
         }
@@ -389,12 +392,12 @@
         thead th:last-child { border-radius: 0 10px 0 0; }
 
         tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
-        tbody tr:hover { background: #f5f5ff; }
-        tbody td { padding: 11px 12px; white-space: nowrap; }
+        tbody tr:active { background: #f5f5ff; }
+        tbody td { padding: 8px; white-space: nowrap; }
 
         .category-badge {
-            padding: 4px 12px; border-radius: 20px;
-            font-size: 0.78rem; font-weight: 600; display: inline-block;
+            padding: 3px 10px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600; display: inline-block;
         }
         .cat-electronica { background: #e3f2fd; color: #1565c0; }
         .cat-ropa { background: #fce4ec; color: #c62828; }
@@ -407,84 +410,82 @@
         .utilidad-cell { font-weight: 700; color: #2e7d32; }
         .utilidad-negativa { color: #c62828 !important; }
 
-        .action-btns { display: flex; gap: 6px; }
+        .action-btns { display: flex; gap: 5px; }
 
         .btn-icon {
             width: 32px; height: 32px; border: none; border-radius: 8px;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             font-size: 14px; transition: all 0.2s;
         }
+        .btn-icon:active { transform: scale(0.9); }
         .btn-edit { background: #e3f2fd; color: #1565c0; }
-        .btn-edit:hover { background: #bbdefb; }
         .btn-delete { background: #ffebee; color: #c62828; }
-        .btn-delete:hover { background: #ffcdd2; }
 
-        .empty-state { text-align: center; padding: 50px 20px; color: #999; }
-        .empty-state .icon { font-size: 50px; margin-bottom: 10px; }
+        .empty-state { text-align: center; padding: 40px 20px; color: #999; }
+        .empty-state .icon { font-size: 40px; margin-bottom: 8px; }
 
         .totals-row { background: #e8eaf6; font-weight: 700; }
-        .totals-row td { padding: 14px 12px; border-top: 2px solid #1a237e; }
+        .totals-row td { padding: 12px 8px; border-top: 2px solid #1a237e; }
 
         .analytics-filters {
-            background: white; border-radius: 16px; padding: 20px 25px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 25px;
-            display: flex; gap: 15px; align-items: end; flex-wrap: wrap;
+            background: white; border-radius: 14px; padding: 15px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 15px;
+            display: flex; gap: 10px; align-items: end; flex-wrap: wrap;
         }
 
-        .filter-group { display: flex; flex-direction: column; gap: 6px; }
-        .filter-group label { font-size: 0.85rem; font-weight: 600; color: #555; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 120px; }
+        .filter-group label { font-size: 0.8rem; font-weight: 600; color: #555; }
         .filter-group select, .filter-group input {
-            padding: 10px 14px; border: 2px solid #e0e0e0;
-            border-radius: 10px; font-size: 0.95rem; outline: none; min-width: 150px;
+            padding: 10px 12px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 0.9rem; outline: none;
         }
         .filter-group select:focus, .filter-group input:focus { border-color: #3949ab; }
 
         .charts-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 25px; margin-bottom: 25px;
+            display: grid; grid-template-columns: 1fr;
+            gap: 15px; margin-bottom: 15px;
         }
-        @media (max-width: 600px) { .charts-grid { grid-template-columns: 1fr; } }
 
         .chart-card {
-            background: white; border-radius: 16px; padding: 25px;
+            background: white; border-radius: 14px; padding: 15px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
         .chart-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; padding-bottom: 12px;
+            margin-bottom: 15px; padding-bottom: 10px;
             border-bottom: 2px solid #e8eaf6;
         }
 
         .chart-title {
-            font-size: 1.1rem; font-weight: 700; color: #1a237e;
+            font-size: 1rem; font-weight: 700; color: #1a237e;
             display: flex; align-items: center; gap: 8px;
         }
 
-        .chart-container { position: relative; height: 300px; }
+        .chart-container { position: relative; height: 280px; }
         .chart-container.small { height: 250px; }
 
         .insights-box {
             background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-            border-radius: 16px; padding: 25px;
+            border-radius: 14px; padding: 15px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
         .insights-title {
-            font-size: 1.1rem; font-weight: 700; color: #1a237e;
-            margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
+            font-size: 1rem; font-weight: 700; color: #1a237e;
+            margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
         }
 
         .insight-item {
-            background: white; border-radius: 10px; padding: 15px;
-            margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
+            background: white; border-radius: 10px; padding: 12px;
+            margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
             box-shadow: 0 1px 5px rgba(0,0,0,0.05);
         }
 
         .insight-icon {
-            width: 40px; height: 40px; border-radius: 10px;
+            width: 38px; height: 38px; border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
+            font-size: 18px; flex-shrink: 0;
         }
         .insight-item:nth-child(2) .insight-icon { background: #e8f5e9; }
         .insight-item:nth-child(3) .insight-icon { background: #fff3e0; }
@@ -492,25 +493,25 @@
         .insight-item:nth-child(5) .insight-icon { background: #e3f2fd; }
 
         .insight-content { flex: 1; }
-        .insight-label { font-size: 0.85rem; color: #777; margin-bottom: 3px; }
-        .insight-value { font-size: 1.1rem; font-weight: 700; color: #1a237e; }
+        .insight-label { font-size: 0.75rem; color: #777; margin-bottom: 2px; }
+        .insight-value { font-size: 1rem; font-weight: 700; color: #1a237e; }
         .insight-value.positive { color: #2e7d32; }
         .insight-value.negative { color: #c62828; }
 
         .settings-panel {
-            background: white; border-radius: 16px; padding: 30px;
+            background: white; border-radius: 14px; padding: 20px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08); max-width: 700px; margin: 0 auto;
         }
 
         .logo-preview {
-            width: 150px; height: 150px; border-radius: 50%;
-            margin: 20px auto; overflow: hidden;
+            width: 130px; height: 130px; border-radius: 50%;
+            margin: 15px auto; overflow: hidden;
             border: 3px solid #e0e0e0;
             display: flex; align-items: center; justify-content: center;
             background: #f5f5f5;
         }
         .logo-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .logo-preview svg { width: 100px; height: 100px; }
+        .logo-preview svg { width: 80px; height: 80px; }
 
         .file-input-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; }
         .file-input-wrapper input[type=file] { position: absolute; left: -9999px; }
@@ -521,10 +522,10 @@
             border-radius: 10px; text-align: center;
             cursor: pointer; transition: all 0.3s;
         }
-        .file-input-label:hover { border-color: #1a237e; background: #f0f4ff; }
+        .file-input-label:active { border-color: #1a237e; background: #f0f4ff; }
 
         .backup-section {
-            margin-top: 30px; padding: 20px;
+            margin-top: 25px; padding: 15px;
             background: #fff3e0; border-radius: 12px;
             border: 2px solid #ffe0b2;
         }
@@ -533,9 +534,9 @@
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
             border: 2px solid #a5d6a7;
             border-radius: 12px;
-            padding: 15px;
+            padding: 12px;
             margin-top: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .auto-delivery-box label {
@@ -543,7 +544,7 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #2e7d32;
             font-weight: 600;
         }
@@ -557,10 +558,10 @@
 
         .auto-delivery-box small {
             display: block;
-            margin-top: 8px;
+            margin-top: 6px;
             margin-left: 30px;
             color: #555;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .modal-overlay {
@@ -572,20 +573,23 @@
         .modal-overlay.active { display: flex; }
 
         .modal {
-            background: white; border-radius: 16px; padding: 30px;
-            width: 90%; max-width: 450px;
+            background: white; border-radius: 16px; padding: 25px;
+            width: 90%; max-width: 400px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
-        .modal h3 { margin-bottom: 15px; color: #1a237e; }
-        .modal p { color: #666; margin-bottom: 20px; }
+        .modal h3 { margin-bottom: 12px; color: #1a237e; font-size: 1.1rem; }
+        .modal p { color: #666; margin-bottom: 15px; font-size: 0.9rem; }
 
         .toast {
-            position: fixed; bottom: 30px; right: 30px;
-            padding: 14px 24px; border-radius: 12px;
+            position: fixed; bottom: 20px; right: 20px; left: 20px;
+            padding: 12px 20px; border-radius: 12px;
             color: white; font-weight: 600;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             transform: translateY(100px); opacity: 0;
             transition: all 0.4s; z-index: 2000;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
         }
         .toast.show { transform: translateY(0); opacity: 1; }
         .toast-success { background: linear-gradient(135deg, #43a047, #2e7d32); }
@@ -593,10 +597,44 @@
         .toast-info { background: linear-gradient(135deg, #3949ab, #1a237e); }
         .toast-whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); }
 
-        .footer { text-align: center; padding: 20px; color: #999; font-size: 0.85rem; margin-top: 30px; }
+        .footer { text-align: center; padding: 15px; color: #999; font-size: 0.75rem; margin-top: 20px; }
+
+        .install-banner {
+            background: linear-gradient(135deg, #1a237e, #283593);
+            color: white;
+            padding: 12px 15px;
+            margin: 10px;
+            border-radius: 12px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(26,35,126,0.3);
+        }
+        .install-banner.show { display: flex; }
+        .install-banner p { font-size: 0.9rem; flex: 1; }
+        .install-banner button {
+            background: white;
+            color: #1a237e;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 768px) {
+            .stats-row { grid-template-columns: repeat(4, 1fr); }
+            .monthly-summary { grid-template-columns: repeat(4, 1fr); }
+            .panels { grid-template-columns: 400px 1fr; }
+            .delivery-grid { grid-template-columns: 1fr 1fr; }
+            .charts-grid { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 20px; }
+        }
 
         @media print {
-            .header, .nav-tabs, .panel:first-child, .table-controls, .action-btns, .btn-group, .footer, .analytics-filters, .login-screen {
+            .header, .nav-tabs, .panel:first-child, .table-controls, .action-btns, .btn-group, .footer, .analytics-filters, .login-screen, .install-banner {
                 display: none !important;
             }
             .panels { grid-template-columns: 1fr; }
@@ -651,13 +689,19 @@
             </form>
             <div class="login-footer">
                 <p>© 2026 Vanegas Store - Technology Products</p>
-                <p style="margin-top: 8px; font-size: 0.75rem;">Usuario: admin | Contraseña: admin123</p>
+                <p style="margin-top: 6px; font-size: 0.7rem;">Usuario: admin | Contraseña: admin123</p>
             </div>
         </div>
     </div>
 
     <!-- ========== MAIN APPLICATION ========== -->
     <div class="main-app" id="mainApp">
+
+        <!-- Banner de instalación -->
+        <div class="install-banner" id="installBanner" style="display:none;">
+            <p>📱 Instala Vanegas Store en tu teléfono</p>
+            <button onclick="instalarApp()">Instalar</button>
+        </div>
 
         <!-- HEADER -->
         <header class="header">
@@ -693,19 +737,19 @@
             </div>
             <div class="header-right">
                 <div class="header-date" id="headerDate"></div>
-                <button class="settings-btn" onclick="showSettings()">⚙️ Config</button>
+                <button class="settings-btn" onclick="showSettings()">⚙️</button>
                 <div class="user-info">
                     <div class="user-avatar" id="userAvatar">A</div>
                     <span id="userNameDisplay">Admin</span>
                 </div>
-                <button class="logout-btn" onclick="logout()">🚪 Salir</button>
+                <button class="logout-btn" onclick="logout()">🚪</button>
             </div>
         </header>
 
         <!-- NAVIGATION TABS -->
         <nav class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('registro', event)">📝 Ventas</button>
-            <button class="nav-tab" onclick="switchTab('pedidos', event)">🚚 Pedidos/Delivery</button>
+            <button class="nav-tab" onclick="switchTab('pedidos', event)">🚚 Pedidos</button>
             <button class="nav-tab" onclick="switchTab('analisis', event)">📊 Análisis</button>
         </nav>
 
@@ -724,21 +768,21 @@
                     <div class="stat-card">
                         <div class="stat-icon">💼</div>
                         <div class="stat-info">
-                            <h3>CAPITAL INVERTIDO</h3>
+                            <h3>CAPITAL</h3>
                             <div class="value capital" id="statTodayCapital">C$0.00</div>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon"></div>
                         <div class="stat-info">
-                            <h3>UTILIDAD DEL DÍA</h3>
+                            <h3>UTILIDAD</h3>
                             <div class="value profit" id="statTodayProfit">C$0.00</div>
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">📦</div>
                         <div class="stat-info">
-                            <h3>TRANSACCIONES HOY</h3>
+                            <h3>TRANSACCIONES</h3>
                             <div class="value" id="statTodayCount">0</div>
                         </div>
                     </div>
@@ -766,21 +810,21 @@
 
                 <div class="panels">
                     <div class="panel">
-                        <div class="panel-title">📝 Registrar Venta</div>
+                        <div class="panel-title"> Registrar Venta</div>
                         <form id="saleForm" onsubmit="return false;">
                             <div class="form-group">
-                                <label>📅 Fecha</label>
+                                <label> Fecha</label>
                                 <input type="date" id="saleDate" required>
                             </div>
                             <div class="form-group">
                                 <label>🏷️ Categoría</label>
                                 <select id="saleCategory" required>
                                     <option value="">Seleccionar...</option>
-                                    <option value="Electrónica">📱 Electrónica</option>
+                                    <option value="Electrónica"> Electrónica</option>
                                     <option value="Ropa">👕 Ropa</option>
-                                    <option value="Alimentos">🍎 Alimentos</option>
+                                    <option value="Alimentos"> Alimentos</option>
                                     <option value="Hogar">🏠 Hogar</option>
-                                    <option value="Otros">📦 Otros</option>
+                                    <option value="Otros"> Otros</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -790,19 +834,19 @@
                             <div class="form-row-3">
                                 <div class="form-group">
                                     <label>🔢 Cantidad</label>
-                                    <input type="number" id="saleQuantity" min="1" value="1" required>
+                                    <input type="number" id="saleQuantity" min="1" value="1" required inputmode="numeric">
                                 </div>
                                 <div class="form-group">
-                                    <label>💲 Precio Venta (C$)</label>
-                                    <input type="number" id="salePrice" min="0.01" step="0.01" placeholder="0.00" required>
+                                    <label>💲 Precio (C$)</label>
+                                    <input type="number" id="salePrice" min="0.01" step="0.01" placeholder="0.00" required inputmode="decimal">
                                 </div>
                                 <div class="form-group">
-                                    <label> Costo (C$)</label>
-                                    <input type="number" id="saleCost" min="0" step="0.01" placeholder="0.00" required>
+                                    <label>💼 Costo (C$)</label>
+                                    <input type="number" id="saleCost" min="0" step="0.01" placeholder="0.00" required inputmode="decimal">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>👤 Cliente (Opcional)</label>
+                                <label> Cliente (Opcional)</label>
                                 <input type="text" id="saleClient" placeholder="Nombre del cliente">
                             </div>
                             <div class="form-group">
@@ -810,13 +854,12 @@
                                 <input type="text" id="saleNotes" placeholder="Observaciones...">
                             </div>
                             
-                            <!-- ✅ NUEVO: Checkbox para auto-generar delivery -->
                             <div class="auto-delivery-box">
                                 <label for="autoDelivery">
                                     <input type="checkbox" id="autoDelivery">
-                                    <span>🚚 Generar pedido/delivery automáticamente con los datos de esta venta</span>
+                                    <span>🚚 Generar delivery automáticamente</span>
                                 </label>
-                                <small>Al marcar esta opción, los datos del cliente, producto, cantidad y precio se copiarán al formulario de delivery al registrar la venta.</small>
+                                <small>Los datos se copiarán al formulario de delivery</small>
                             </div>
                             
                             <div class="totals-box">
@@ -825,7 +868,7 @@
                                     <span class="val" id="calcVenta">C$0.00</span>
                                 </div>
                                 <div class="total-line capital">
-                                    <span class="lbl">💼 Capital Invertido:</span>
+                                    <span class="lbl">💼 Capital:</span>
                                     <span class="val" id="calcCapital">C$0.00</span>
                                 </div>
                                 <div class="total-line utilidad">
@@ -843,18 +886,20 @@
                     <div class="panel">
                         <div class="panel-title">📋 Historial de Ventas</div>
                         <div class="table-controls">
-                            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar..." oninput="renderTable()">
+                            <input type="text" class="search-box" id="searchBox" placeholder=" Buscar..." oninput="renderTable()">
                             <input type="date" class="date-filter" id="dateFilter" onchange="renderTable()">
-                            <button class="btn btn-success btn-sm" onclick="exportToExcel()"> Excel</button>
-                            <button class="btn btn-danger btn-sm" onclick="confirmClearAll()">️ Limpiar</button>
+                        </div>
+                        <div class="btn-group" style="margin-top:8px; margin-bottom:15px;">
+                            <button class="btn btn-success btn-sm" onclick="exportToExcel()" style="flex:1;">📊 Excel</button>
+                            <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="flex:1;">🗑️ Limpiar</button>
                         </div>
                         <div class="table-wrapper">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>#</th><th>Fecha</th><th>Categoría</th><th>Producto</th>
-                                        <th>Cant.</th><th>Venta (C$)</th><th>Capital (C$)</th>
-                                        <th>Utilidad (C$)</th><th>Cliente</th><th>Acciones</th>
+                                        <th>Cant.</th><th>Venta</th><th>Capital</th>
+                                        <th>Utilidad</th><th>Cliente</th><th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="salesTableBody"></tbody>
@@ -877,9 +922,9 @@
                                 <span class="number" id="displayWhatsappNumber">50578923348</span>
                             </div>
                             <div class="form-group" style="margin-bottom:0;">
-                                <label style="font-size:0.85rem;">Cambiar número (con código de país, sin + ni espacios):</label>
+                                <label style="font-size:0.8rem;">Cambiar número (con código de país, sin + ni espacios):</label>
                                 <div style="display:flex; gap:8px;">
-                                    <input type="text" id="whatsappNumber" placeholder="Ej: 50588888888" style="flex:1;">
+                                    <input type="text" id="whatsappNumber" placeholder="Ej: 50588888888" style="flex:1;" inputmode="numeric">
                                     <button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;">💾</button>
                                 </div>
                             </div>
@@ -897,7 +942,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>📦 Descripción del Producto</label>
+                                <label> Descripción del Producto</label>
                                 <textarea id="delProducto" placeholder="Ej: 1 caja de micrófonos GE52" required oninput="updateMessagePreview()"></textarea>
                             </div>
                             
@@ -908,7 +953,7 @@
                             
                             <div class="form-group">
                                 <label>📞 Teléfono de Entrega</label>
-                                <input type="text" id="delTelefono" placeholder="Ej: 57311275" required oninput="updateMessagePreview()">
+                                <input type="text" id="delTelefono" placeholder="Ej: 57311275" required oninput="updateMessagePreview()" inputmode="tel">
                             </div>
                             
                             <div class="form-group">
@@ -923,22 +968,22 @@
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>🔢 Cantidad de Productos</label>
-                                    <input type="number" id="delCantidad" min="1" value="1" placeholder="1" required oninput="calcDelivery()">
+                                    <label>🔢 Cantidad</label>
+                                    <input type="number" id="delCantidad" min="1" value="1" placeholder="1" required oninput="calcDelivery()" inputmode="numeric">
                                 </div>
                                 <div class="form-group">
-                                    <label>💲 Precio Unitario (C$)</label>
-                                    <input type="number" id="delPrecio" min="0" step="0.01" placeholder="0.00" required oninput="calcDelivery()">
+                                    <label>💲 Precio Unit. (C$)</label>
+                                    <input type="number" id="delPrecio" min="0" step="0.01" placeholder="0.00" required oninput="calcDelivery()" inputmode="decimal">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label> Costo Delivery (C$)</label>
-                                    <input type="number" id="delDelivery" min="0" step="0.01" placeholder="0.00" required oninput="calcDelivery()">
+                                    <input type="number" id="delDelivery" min="0" step="0.01" placeholder="0.00" required oninput="calcDelivery()" inputmode="decimal">
                                 </div>
                                 <div class="form-group">
-                                    <label>💵 Total a Pagar (C$)</label>
+                                    <label>💵 Total (C$)</label>
                                     <input type="number" id="delTotal" min="0" step="0.01" placeholder="0.00" readonly style="background:#e8f5e9; font-weight:700; font-size:1.1rem; color:#2e7d32;">
                                 </div>
                             </div>
@@ -954,7 +999,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>📝 Notas Adicionales (Opcional)</label>
+                                <label> Notas Adicionales (Opcional)</label>
                                 <textarea id="delNotas" placeholder="Observaciones adicionales..." oninput="updateMessagePreview()"></textarea>
                             </div>
 
@@ -969,7 +1014,7 @@
                     </div>
 
                     <div>
-                        <div class="panel" style="margin-bottom:25px;">
+                        <div class="panel" style="margin-bottom:15px;">
                             <div class="preview-header">
                                 <h4>👁️ Vista Previa del Mensaje</h4>
                                 <button class="btn btn-sm btn-secondary" onclick="copyMessage()" style="width:auto;">📋 Copiar</button>
@@ -981,11 +1026,13 @@
                             <div class="panel-title">📋 Historial de Pedidos</div>
                             <div class="table-controls">
                                 <input type="text" class="search-box" id="deliverySearch" placeholder="🔍 Buscar pedido..." oninput="renderDeliveryHistory()">
-                                <button class="btn btn-danger btn-sm" onclick="confirmClearDeliveries()">️ Limpiar</button>
+                            </div>
+                            <div class="btn-group" style="margin-top:8px; margin-bottom:15px;">
+                                <button class="btn btn-danger btn-sm" onclick="confirmClearDeliveries()" style="flex:1;">🗑️ Limpiar</button>
                             </div>
                             <div id="deliveryHistoryList">
                                 <div class="empty-state">
-                                    <div class="icon">📭</div>
+                                    <div class="icon"></div>
                                     <p>No hay pedidos registrados</p>
                                 </div>
                             </div>
@@ -1000,20 +1047,20 @@
                     <div class="filter-group">
                         <label>📅 Tipo de Vista</label>
                         <select id="chartType" onchange="updateCharts()">
-                            <option value="daily">📅 Por Día</option>
+                            <option value="daily"> Por Día</option>
                             <option value="monthly">📆 Por Mes</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label>📅 Fecha Inicio</label>
+                        <label> Fecha Inicio</label>
                         <input type="date" id="dateStart" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
-                        <label>📅 Fecha Fin</label>
+                        <label> Fecha Fin</label>
                         <input type="date" id="dateEnd" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
-                        <label>🏷️ Categoría</label>
+                        <label>️ Categoría</label>
                         <select id="categoryFilter" onchange="updateCharts()">
                             <option value="">Todas</option>
                             <option value="Electrónica">Electrónica</option>
@@ -1035,7 +1082,7 @@
                         <div class="chart-container"><canvas id="profitChart"></canvas></div>
                     </div>
                     <div class="chart-card">
-                        <div class="chart-header"><div class="chart-title">🏷️ Ventas por Categoría</div></div>
+                        <div class="chart-header"><div class="chart-title">️ Ventas por Categoría</div></div>
                         <div class="chart-container small"><canvas id="categoryChart"></canvas></div>
                     </div>
                     <div class="chart-card">
@@ -1043,12 +1090,11 @@
                         <div class="chart-container small"><canvas id="capitalProfitChart"></canvas></div>
                     </div>
                     
-                    <!-- Productos Más Vendidos -->
                     <div class="chart-card" style="grid-column: 1 / -1;">
                         <div class="chart-header">
-                            <div class="chart-title">🏆 Productos Más Vendidos / Solicitados</div>
+                            <div class="chart-title"> Productos Más Vendidos</div>
                         </div>
-                        <div class="chart-container" style="height: 450px;"><canvas id="topProductsChart"></canvas></div>
+                        <div class="chart-container" style="height: 400px;"><canvas id="topProductsChart"></canvas></div>
                     </div>
                 </div>
 
@@ -1061,22 +1107,28 @@
             <!-- ========== SECCIÓN CONFIGURACIÓN ========== -->
             <section id="configuracion" class="section">
                 <div class="settings-panel">
-                    <h2 style="text-align:center; color:#1a237e; margin-bottom:10px;">⚙️ Configuración del Logo</h2>
-                    <p style="text-align:center; color:#666; margin-bottom:20px;">Sube el logo de Vanegas Store desde tu computadora</p>
+                    <h2 style="text-align:center; color:#1a237e; margin-bottom:10px;">⚙️ Configuración</h2>
                     
+                    <h3 style="color:#1a237e; margin:20px 0 10px; font-size:1rem;">📱 Descargar App</h3>
+                    <div style="background:#e3f2fd; padding:15px; border-radius:10px; margin-bottom:20px;">
+                        <p style="color:#1565c0; margin-bottom:10px; font-weight:600;">📲 Descarga la app completa con todos tus datos</p>
+                        <p style="color:#666; font-size:0.85rem; margin-bottom:12px;">
+                            Descarga un archivo HTML que incluye TODAS tus ventas y pedidos. Funciona offline en cualquier dispositivo.
+                        </p>
+                        <button class="btn btn-primary" onclick="descargarAppCompleta()" style="width:100%;">
+                            📥 Descargar App con Datos (${sales.length} ventas, ${deliveries.length} pedidos)
+                        </button>
+                        <small style="color:#999; display:block; margin-top:8px;">
+                            Abre el archivo descargado en tu celular y los datos se cargarán automáticamente
+                        </small>
+                    </div>
+                    
+                    <h3 style="color:#1a237e; margin:20px 0 10px; font-size:1rem;">🎨 Logo</h3>
                     <div class="logo-preview" id="settingsLogoPreview">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="50" r="45" stroke="url(#g1)" stroke-width="3" fill="none"/>
                             <rect x="35" y="35" width="30" height="30" rx="5" stroke="url(#g2)" stroke-width="3" fill="none"/>
                             <circle cx="50" cy="50" r="8" fill="url(#g2)"/>
-                            <line x1="50" y1="20" x2="50" y2="35" stroke="url(#g1)" stroke-width="3" stroke-linecap="round"/>
-                            <line x1="50" y1="65" x2="50" y2="80" stroke="url(#g2)" stroke-width="3" stroke-linecap="round"/>
-                            <line x1="20" y1="50" x2="35" y2="50" stroke="url(#g1)" stroke-width="3" stroke-linecap="round"/>
-                            <line x1="65" y1="50" x2="80" y2="50" stroke="url(#g2)" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="30" cy="30" r="5" fill="url(#g1)"/>
-                            <circle cx="70" cy="30" r="5" fill="url(#g2)"/>
-                            <circle cx="30" cy="70" r="5" fill="url(#g1)"/>
-                            <circle cx="70" cy="70" r="5" fill="url(#g2)"/>
                             <defs>
                                 <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
                                     <stop offset="0%" style="stop-color:#00bcd4"/>
@@ -1091,45 +1143,36 @@
                     </div>
 
                     <div class="form-group">
-                        <label>📁 Seleccionar Logo desde tu Computadora</label>
+                        <label> Seleccionar Logo</label>
                         <div class="file-input-wrapper">
                             <input type="file" id="logoInput" accept="image/*" onchange="handleLogoUpload(event)">
                             <label for="logoInput" class="file-input-label">
-                                📂 Haz clic para seleccionar el archivo de imagen<br>
-                                <small style="color:#999;">Formatos: PNG, JPG, SVG (Recomendado: 500x500px)</small>
+                                📂 Haz clic para seleccionar imagen
                             </label>
                         </div>
                     </div>
 
-                    <div class="btn-group" style="margin-top:20px;">
-                        <button class="btn btn-secondary" onclick="resetToDefaultLogo()" style="flex:1;">🔄 Volver al Logo por Defecto</button>
-                        <button class="btn btn-primary" onclick="switchTabDirect('registro')" style="flex:1;">✅ Guardar y Volver</button>
+                    <div class="btn-group" style="margin-top:15px;">
+                        <button class="btn btn-secondary" onclick="resetToDefaultLogo()" style="flex:1;">🔄 Logo por Defecto</button>
+                        <button class="btn btn-primary" onclick="switchTabDirect('registro')" style="flex:1;">✅ Volver</button>
                     </div>
 
                     <div class="backup-section">
-                        <h3 style="color:#e65100; margin-bottom:15px; display:flex; align-items:center; gap:8px;">
-                            💾 Respaldo y Migración de Datos
+                        <h3 style="color:#e65100; margin-bottom:12px; display:flex; align-items:center; gap:8px; font-size:1rem;">
+                            💾 Respaldo y Migración
                         </h3>
-                        <p style="color:#666; margin-bottom:15px; font-size:0.9rem;">
-                            Exporta todos tus datos (ventas, pedidos, logo, configuración) para trasladarlos a otra computadora o hacer un respaldo de seguridad.
+                        <p style="color:#666; margin-bottom:12px; font-size:0.85rem;">
+                            Exporta todos tus datos para trasladarlos a otra computadora o hacer respaldo.
                         </p>
                         
-                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                            <button class="btn btn-success" onclick="exportarRespaldo()" style="flex:1; min-width:200px;">
-                                💾 Exportar Respaldo
+                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="btn btn-success" onclick="exportarRespaldo()" style="flex:1; min-width:150px;">
+                                💾 Exportar
                             </button>
-                            <button class="btn btn-primary" onclick="document.getElementById('importarFile').click()" style="flex:1; min-width:200px;">
-                                📥 Importar Respaldo
+                            <button class="btn btn-primary" onclick="document.getElementById('importarFile').click()" style="flex:1; min-width:150px;">
+                                📥 Importar
                             </button>
                             <input type="file" id="importarFile" accept=".json" style="display:none" onchange="importarRespaldo(event)">
-                        </div>
-                        
-                        <div style="margin-top:15px; padding:12px; background:white; border-radius:8px; font-size:0.85rem; color:#555;">
-                            <strong>📋 Instrucciones:</strong><br>
-                            1. <strong>Exportar:</strong> Descarga un archivo JSON con todos tus datos<br>
-                            2. <strong>Importar:</strong> Carga ese archivo en la nueva computadora<br>
-                            3. Los datos incluyen: ventas, pedidos, logo y configuración<br>
-                            4. <strong>Recomendación:</strong> Haz respaldos frecuentes para mayor seguridad
                         </div>
                     </div>
 
@@ -1147,7 +1190,7 @@
     <!-- ========== MODAL ========== -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
-            <h3 id="modalTitle">️ Confirmar acción</h3>
+            <h3 id="modalTitle">⚠️ Confirmar acción</h3>
             <p id="modalMessage">¿Estás seguro de que deseas realizar esta acción?</p>
             <div class="btn-group">
                 <button class="btn btn-secondary btn-sm" onclick="closeModal()" style="flex:1;">Cancelar</button>
@@ -1172,6 +1215,7 @@
         let customLogo = localStorage.getItem('vanegas_logo') || null;
         let whatsappNumber = localStorage.getItem('vanegas_whatsapp') || '50578923348';
         let topProductsData = [];
+        let deferredPrompt = null;
 
         // ============ INIT ============
         window.onload = function() {
@@ -1181,12 +1225,100 @@
             document.getElementById('whatsappNumber').value = whatsappNumber;
             document.getElementById('displayWhatsappNumber').textContent = whatsappNumber;
             
-            // Restaurar preferencia del checkbox auto-delivery
             const autoDeliveryPref = localStorage.getItem('autoDelivery_preference');
             if (autoDeliveryPref === 'true') {
                 document.getElementById('autoDelivery').checked = true;
             }
         };
+
+        // ============ PWA INSTALL ============
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').style.display = 'flex';
+        });
+
+        function instalarApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast('✅ App instalada correctamente', 'success');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('installBanner').style.display = 'none';
+                });
+            } else {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                if (isIOS) {
+                    alert('📱 Para instalar en iPhone:\n\n1. Toca el botón "Compartir" (cuadrado con flecha ↑)\n2. Selecciona "Agregar a pantalla de inicio"\n3. Toca "Agregar"');
+                } else {
+                    alert(' Para instalar en Android:\n\n1. Abre el menú del navegador (⋮)\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla principal"\n3. ¡Listo!');
+                }
+            }
+        }
+
+        // ============ DESCARGAR APP COMPLETA CON DATOS ============
+        function descargarAppCompleta() {
+            if (sales.length === 0 && deliveries.length === 0) {
+                showToast('️ No hay datos para exportar. Registra algunas ventas primero.', 'error');
+                return;
+            }
+
+            const datosEmbebidos = {
+                ventas: sales,
+                pedidos: deliveries,
+                logo: customLogo,
+                whatsapp: whatsappNumber,
+                fechaExportacion: new Date().toISOString()
+            };
+
+            fetch('index.html')
+                .then(response => response.text())
+                .then(html => {
+                    const htmlCompleto = html.replace(
+                        '</body>',
+                        `<script>
+                            window.DATOS_EMBEBIDOS = ${JSON.stringify(datosEmbebidos)};
+                            
+                            window.addEventListener('load', function() {
+                                if (window.DATOS_EMBEBIDOS) {
+                                    if (window.DATOS_EMBEBIDOS.ventas && window.DATOS_EMBEBIDOS.ventas.length > 0) {
+                                        localStorage.setItem('vanegas_sales', JSON.stringify(window.DATOS_EMBEBIDOS.ventas));
+                                    }
+                                    if (window.DATOS_EMBEBIDOS.pedidos && window.DATOS_EMBEBIDOS.pedidos.length > 0) {
+                                        localStorage.setItem('vanegas_deliveries', JSON.stringify(window.DATOS_EMBEBIDOS.pedidos));
+                                    }
+                                    if (window.DATOS_EMBEBIDOS.logo) {
+                                        localStorage.setItem('vanegas_logo', window.DATOS_EMBEBIDOS.logo);
+                                    }
+                                    if (window.DATOS_EMBEBIDOS.whatsapp) {
+                                        localStorage.setItem('vanegas_whatsapp', window.DATOS_EMBEBIDOS.whatsapp);
+                                    }
+                                    
+                                    setTimeout(() => {
+                                        alert('✅ App cargada con ${sales.length} ventas y ${deliveries.length} pedidos\\n\\nLos datos se han importado correctamente.');
+                                    }, 1000);
+                                }
+                            });
+                        <\/script>
+                        </body>`
+                    );
+
+                    const blob = new Blob([htmlCompleto], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `Vanegas_Store_App_${getTodayStr()}.html`;
+                    link.click();
+                    URL.revokeObjectURL(url);
+
+                    showToast('✅ App descargada con todos los datos', 'success');
+                })
+                .catch(error => {
+                    showToast('❌ Error al generar la app: ' + error.message, 'error');
+                });
+        }
 
         // ============ LOGO FUNCTIONS ============
         function loadCustomLogo() {
@@ -1245,7 +1377,7 @@
             whatsappNumber = num.replace(/[^0-9]/g, '');
             localStorage.setItem('vanegas_whatsapp', whatsappNumber);
             document.getElementById('displayWhatsappNumber').textContent = whatsappNumber;
-            showToast('✅ Número de WhatsApp actualizado: ' + whatsappNumber, 'success');
+            showToast('✅ Número actualizado: ' + whatsappNumber, 'success');
             updateMessagePreview();
         }
 
@@ -1316,6 +1448,7 @@
             if (event && event.target) event.target.classList.add('active');
             if (tab === 'analisis') setTimeout(() => updateCharts(), 100);
             if (tab === 'pedidos') { renderDeliveryHistory(); updateMessagePreview(); }
+            window.scrollTo(0, 0);
         }
 
         function switchTabDirect(tab) {
@@ -1325,6 +1458,7 @@
             document.querySelectorAll('.nav-tab').forEach(t => {
                 if (t.textContent.toLowerCase().includes(tab.substring(0,4))) t.classList.add('active');
             });
+            window.scrollTo(0, 0);
         }
 
         // ============ DATE HELPERS ============
@@ -1466,7 +1600,7 @@
             msg += `🚚 *Entrega a:* ${entrega}\n`;
             msg += `📞 *Cel:* ${telefono}\n\n`;
             msg += `📍 *Dirección:*\n${direccion}\n`;
-            if (casa) msg += `️ *Casa:* ${casa}\n`;
+            if (casa) msg += `🏷️ *Casa:* ${casa}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `💲 *Desglose de Pago:*\n`;
             msg += `   • Subtotal (${cantidad} x C$${precio.toFixed(2)}): C$${subtotal.toFixed(2)}\n`;
@@ -1474,7 +1608,7 @@
             msg += `   • *Total a pagar: C$${total.toFixed(2)}*\n\n`;
             msg += `🏦 *Cuenta para depositar:*\n${cuenta}\n\n`;
             msg += `⏰ *Nota:* Cliente pide ${horaLimite}\n`;
-            if (notas) msg += `\n📝 *Notas:* ${notas}\n`;
+            if (notas) msg += `\n *Notas:* ${notas}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `🛒 *Vanegas Store* - Technology Products`;
 
@@ -1495,7 +1629,7 @@
         function sendToWhatsApp() {
             const msg = generateMessage();
             if (!msg) {
-                showToast('️ Completa los campos obligatorios del pedido', 'error');
+                showToast('⚠️ Completa los campos obligatorios del pedido', 'error');
                 return;
             }
 
@@ -1503,7 +1637,7 @@
             const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
             
             window.open(url, '_blank');
-            showToast('📱 Abriendo WhatsApp...', 'whatsapp');
+            showToast(' Abriendo WhatsApp...', 'whatsapp');
             
             saveDelivery(true);
         }
@@ -1511,7 +1645,7 @@
         function copyMessage() {
             const msg = generateMessage();
             if (!msg) {
-                showToast('⚠️ No hay mensaje para copiar', 'error');
+                showToast('️ No hay mensaje para copiar', 'error');
                 return;
             }
             navigator.clipboard.writeText(msg).then(() => {
@@ -1546,7 +1680,7 @@
             const notas = document.getElementById('delNotas').value.trim();
 
             if (!pedido || !producto || !entrega) {
-                if (!fromWhatsapp) showToast('⚠️ Completa los campos obligatorios', 'error');
+                if (!fromWhatsapp) showToast('️ Completa los campos obligatorios', 'error');
                 return;
             }
 
@@ -1616,14 +1750,14 @@
                             </span>
                         </div>
                         <div class="dh-product">📦 ${d.producto}${cantidadText}</div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span class="dh-date"> ${formatDate(d.date)} ${d.time || ''} | 📞 ${d.telefono}</span>
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:5px;">
+                            <span class="dh-date">📅 ${formatDate(d.date)} ${d.time || ''} | 📞 ${d.telefono}</span>
                             <span class="dh-total">C$${d.total.toFixed(2)}</span>
                         </div>
-                        <div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;">
-                            <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar">📱</button>
-                            <button class="btn-icon btn-edit" onclick="copyDeliveryMessage(${d.id})" title="Copiar">📋</button>
-                            <button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">️</button>
+                        <div style="margin-top:8px; display:flex; gap:5px; flex-wrap:wrap;">
+                            <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar"></button>
+                            <button class="btn-icon btn-edit" onclick="copyDeliveryMessage(${d.id})" title="Copiar"></button>
+                            <button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">🗑️</button>
                         </div>
                     </div>`;
             });
@@ -1641,16 +1775,16 @@
             let msg = `🚚 *ENVÍO - VANEGAS STORE*\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `📋 *Pedido:* ${d.pedido}\n`;
-            msg += `👤 *Solicitante:* ${d.solicitante}\n`;
+            msg += ` *Solicitante:* ${d.solicitante}\n`;
             msg += `📦 *Producto:* ${d.producto}\n`;
             msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-            msg += `🚚 *Entrega a:* ${d.entrega}\n`;
+            msg += ` *Entrega a:* ${d.entrega}\n`;
             msg += `📞 *Cel:* ${d.telefono}\n\n`;
             msg += `📍 *Dirección:*\n${d.direccion}\n`;
-            if (d.casa) msg += `🏷️ *Casa:* ${d.casa}\n`;
+            if (d.casa) msg += `️ *Casa:* ${d.casa}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
-            msg += ` *Desglose de Pago:*\n`;
+            msg += `💲 *Desglose de Pago:*\n`;
             msg += `   • Subtotal (${cantidad} x C$${d.precio.toFixed(2)}): C$${subtotal.toFixed(2)}\n`;
             msg += `   • Delivery: C$${d.deliveryCost.toFixed(2)}\n`;
             msg += `   • *Total a pagar: C$${d.total.toFixed(2)}*\n\n`;
@@ -1676,17 +1810,17 @@
             const cantidad = d.cantidad || 1;
             const subtotal = cantidad * d.precio;
             
-            let msg = `🚚 ENVÍO - VANEGAS STORE\n`;
+            let msg = ` ENVÍO - VANEGAS STORE\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-            msg += ` Pedido: ${d.pedido}\n`;
+            msg += `📋 Pedido: ${d.pedido}\n`;
             msg += `👤 Solicitante: ${d.solicitante}\n`;
             msg += ` Producto: ${d.producto}\n`;
             msg += `🔢 Cantidad: ${cantidad} unidad(es)\n\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-            msg += ` Entrega a: ${d.entrega}\n`;
-            msg += `📞 Cel: ${d.telefono}\n\n`;
+            msg += `🚚 Entrega a: ${d.entrega}\n`;
+            msg += ` Cel: ${d.telefono}\n\n`;
             msg += `📍 Dirección:\n${d.direccion}\n`;
-            if (d.casa) msg += `🏷️ Casa: ${d.casa}\n`;
+            if (d.casa) msg += `️ Casa: ${d.casa}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `💲 Desglose de Pago:\n`;
             msg += `   • Subtotal (${cantidad} x C$${d.precio.toFixed(2)}): C$${subtotal.toFixed(2)}\n`;
@@ -1711,7 +1845,7 @@
                 localStorage.setItem('vanegas_deliveries', JSON.stringify(deliveries));
                 renderDeliveryHistory();
                 closeModal();
-                showToast('️ Pedido eliminado', 'error');
+                showToast('🗑️ Pedido eliminado', 'error');
             };
             document.getElementById('modalOverlay').classList.add('active');
         }
@@ -1779,39 +1913,28 @@
             renderTable(); 
             updateStats();
             
-            // ✅ NUEVO: Auto-generar delivery si está marcado el checkbox
             if (document.getElementById('autoDelivery').checked) {
                 autoGenerateDelivery(sale);
             }
         }
 
-        // ============ AUTO-GENERAR DELIVERY DESDE VENTA ============
         function autoGenerateDelivery(sale) {
-            // Copiar datos de la venta al formulario de delivery
             document.getElementById('delProducto').value = sale.product;
             document.getElementById('delCantidad').value = sale.quantity;
             document.getElementById('delPrecio').value = sale.price;
             
-            // Si el cliente no es "—", copiarlo al campo de entrega
             if (sale.client && sale.client !== '—') {
                 document.getElementById('delEntrega').value = sale.client;
             }
             
-            // Si hay notas, copiarlas
             if (sale.notes) {
                 document.getElementById('delNotas').value = sale.notes;
             }
             
-            // Calcular el total automáticamente
             calcDelivery();
-            
-            // Cambiar a la pestaña de pedidos para que el usuario vea el formulario
             switchTabDirect('pedidos');
+            showToast(' Datos copiados al formulario de delivery', 'info');
             
-            // Mostrar mensaje
-            showToast('🚚 Datos copiados al formulario de delivery. Completa la dirección y teléfono.', 'info');
-            
-            // Hacer scroll al formulario de delivery y enfocar el campo de dirección
             setTimeout(() => {
                 document.getElementById('delDireccion').focus();
                 document.getElementById('delDireccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1825,14 +1948,12 @@
             calcTotals(); 
             editingId = null;
             
-            // Restaurar preferencia del checkbox auto-delivery
             const autoDeliveryPref = localStorage.getItem('autoDelivery_preference');
             if (autoDeliveryPref === 'true') {
                 document.getElementById('autoDelivery').checked = true;
             }
         }
 
-        // Guardar preferencia del checkbox cuando cambia
         document.addEventListener('DOMContentLoaded', function() {
             const autoDeliveryCheckbox = document.getElementById('autoDelivery');
             if (autoDeliveryCheckbox) {
@@ -1949,7 +2070,7 @@
         }
 
         function confirmClearAll() {
-            if (sales.length === 0) { showToast('ℹ️ No hay ventas', 'info'); return; }
+            if (sales.length === 0) { showToast('️ No hay ventas', 'info'); return; }
             document.getElementById('modalTitle').textContent = '⚠️ Eliminar TODAS las Ventas';
             document.getElementById('modalMessage').textContent = `¿Eliminar las ${sales.length} ventas?`;
             document.getElementById('modalConfirmBtn').onclick = () => {
@@ -2191,7 +2312,7 @@
             document.getElementById('insightsContent').innerHTML = `
                 <div class="insight-item"><div class="insight-icon">💰</div><div class="insight-content"><div class="insight-label">Ventas Totales</div><div class="insight-value">C$${d.tV.toFixed(2)} en ${d.tN} transacciones</div></div></div>
                 <div class="insight-item"><div class="insight-icon">📈</div><div class="insight-content"><div class="insight-label">Utilidad Total</div><div class="insight-value ${uc}">C$${d.tU.toFixed(2)}</div></div></div>
-                <div class="insight-item"><div class="insight-icon"></div><div class="insight-content"><div class="insight-label">Margen Promedio</div><div class="insight-value ${mc}">${d.mp.toFixed(2)}%</div></div></div>
+                <div class="insight-item"><div class="insight-icon">📊</div><div class="insight-content"><div class="insight-label">Margen Promedio</div><div class="insight-value ${mc}">${d.mp.toFixed(2)}%</div></div></div>
                 <div class="insight-item"><div class="insight-icon">🏆</div><div class="insight-content"><div class="insight-label">Mejor Período</div><div class="insight-value">${d.bp} (C$${d.bv.toFixed(2)})</div></div></div>
                 <div class="insight-item"><div class="insight-icon">🎯</div><div class="insight-content"><div class="insight-label">Producto Más Vendido</div><div class="insight-value">${d.tp} (${d.tq} uds)</div></div></div>`;
         }
