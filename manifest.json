@@ -1,0 +1,22 @@
+{
+  "name": "Vanegas Store - Sistema de Ventas",
+  "short_name": "Vanegas Store",
+  "description": "Sistema de Registro de Ventas y Pedidos",
+  "start_url": "/vanegas-store/",
+  "display": "standalone",
+  "background_color": "#1a237e",
+  "theme_color": "#1a237e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://bernardvanegas.github.io/vanegas-store/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://bernardvanegas.github.io/vanegas-store/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
