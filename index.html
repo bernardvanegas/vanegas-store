@@ -678,7 +678,7 @@
             <div class="login-error" id="loginError">❌ Usuario o contraseña incorrectos</div>
             <form class="login-form" onsubmit="return handleLogin(event)">
                 <div class="form-group">
-                    <label for="username"> Usuario</label>
+                    <label for="username">👤 Usuario</label>
                     <input type="text" id="username" placeholder="Ingresa tu usuario" required>
                 </div>
                 <div class="form-group">
@@ -699,7 +699,7 @@
 
         <!-- Banner de instalación -->
         <div class="install-banner" id="installBanner" style="display:none;">
-            <p> Instala Vanegas Store en tu teléfono</p>
+            <p>📱 Instala Vanegas Store en tu teléfono</p>
             <button onclick="instalarApp()">Instalar</button>
         </div>
 
@@ -748,8 +748,8 @@
 
         <!-- NAVIGATION TABS -->
         <nav class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('registro', event)"> Ventas</button>
-            <button class="nav-tab" onclick="switchTab('pedidos', event)"> Pedidos</button>
+            <button class="nav-tab active" onclick="switchTab('registro', event)">📝 Ventas</button>
+            <button class="nav-tab" onclick="switchTab('pedidos', event)">🚚 Pedidos</button>
             <button class="nav-tab" onclick="switchTab('analisis', event)">📊 Análisis</button>
         </nav>
 
@@ -789,7 +789,7 @@
                 </div>
 
                 <div class="monthly-summary">
-                    <div class="summary-title"> Resumen del Mes Actual</div>
+                    <div class="summary-title">📊 Resumen del Mes Actual</div>
                     <div class="summary-item">
                         <span class="label">💰 VENTAS DEL MES</span>
                         <span class="val ventas" id="statMonthSales">C$0.00</span>
@@ -803,26 +803,26 @@
                         <span class="val utilidad" id="statMonthProfit">C$0.00</span>
                     </div>
                     <div class="summary-item">
-                        <span class="label">📦 TRANSACCIONES</span>
+                        <span class="label"> TRANSACCIONES</span>
                         <span class="val transacciones" id="statMonthCount">0</span>
                     </div>
                 </div>
 
                 <div class="panels">
                     <div class="panel">
-                        <div class="panel-title"> Registrar Venta</div>
+                        <div class="panel-title">📝 Registrar Venta</div>
                         <form id="saleForm" onsubmit="return false;">
                             <div class="form-group">
                                 <label>📅 Fecha</label>
                                 <input type="date" id="saleDate" required>
                             </div>
                             <div class="form-group">
-                                <label>️ Categoría</label>
+                                <label>🏷️ Categoría</label>
                                 <select id="saleCategory" required>
                                     <option value="">Seleccionar...</option>
                                     <option value="Electrónica">📱 Electrónica</option>
                                     <option value="Ropa">👕 Ropa</option>
-                                    <option value="Alimentos">🍎 Alimentos</option>
+                                    <option value="Alimentos"> Alimentos</option>
                                     <option value="Hogar">🏠 Hogar</option>
                                     <option value="Otros"> Otros</option>
                                 </select>
@@ -846,7 +846,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label> Cliente (Opcional)</label>
+                                <label>👤 Cliente (Opcional)</label>
                                 <input type="text" id="saleClient" placeholder="Nombre del cliente">
                             </div>
                             <div class="form-group">
@@ -872,13 +872,13 @@
                                     <span class="val" id="calcCapital">C$0.00</span>
                                 </div>
                                 <div class="total-line utilidad">
-                                    <span class="lbl"> Utilidad:</span>
+                                    <span class="lbl">📈 Utilidad:</span>
                                     <span class="val" id="calcUtilidad">C$0.00</span>
                                 </div>
                             </div>
                             <button type="button" class="btn btn-primary" onclick="registerSale()">✅ Registrar Venta</button>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="clearForm()" style="flex:1;"> Limpiar</button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="clearForm()" style="flex:1;">🔄 Limpiar</button>
                             </div>
                         </form>
                     </div>
@@ -890,8 +890,8 @@
                             <input type="date" class="date-filter" id="dateFilter" onchange="renderTable()">
                         </div>
                         <div class="btn-group" style="margin-top:8px; margin-bottom:15px;">
-                            <button class="btn btn-success btn-sm" onclick="exportToExcel()" style="flex:1;">📊 Excel</button>
-                            <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="flex:1;">️ Limpiar</button>
+                            <button class="btn btn-success btn-sm" onclick="exportToExcel()" style="flex:1;"> Excel</button>
+                            <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="flex:1;">🗑️ Limpiar</button>
                         </div>
                         <div class="table-wrapper">
                             <table>
@@ -916,7 +916,7 @@
                         <div class="panel-title">🚚 Nuevo Pedido / Delivery</div>
                         
                         <div class="whatsapp-config">
-                            <h3> Configuración WhatsApp</h3>
+                            <h3>📱 Configuración WhatsApp</h3>
                             <div class="whatsapp-number-display">
                                 <span style="color:#666;">Número destino:</span>
                                 <span class="number" id="displayWhatsappNumber">50578923348</span>
@@ -925,7 +925,7 @@
                                 <label style="font-size:0.8rem;">Cambiar número (con código de país, sin + ni espacios):</label>
                                 <div style="display:flex; gap:8px;">
                                     <input type="text" id="whatsappNumber" placeholder="Ej: 50588888888" style="flex:1;" inputmode="numeric">
-                                    <button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;"></button>
+                                    <button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;">💾</button>
                                 </div>
                             </div>
                         </div>
@@ -942,7 +942,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label> Descripción del Producto</label>
+                                <label>📦 Descripción del Producto</label>
                                 <textarea id="delProducto" placeholder="Ej: 1 caja de micrófonos GE52" required oninput="updateMessagePreview()"></textarea>
                             </div>
                             
@@ -952,7 +952,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>📞 Teléfono de Entrega</label>
+                                <label> Teléfono de Entrega</label>
                                 <input type="text" id="delTelefono" placeholder="Ej: 57311275" required oninput="updateMessagePreview()" inputmode="tel">
                             </div>
                             
@@ -972,7 +972,7 @@
                                     <input type="number" id="delCantidad" min="1" value="1" placeholder="1" required oninput="calcDelivery()" inputmode="numeric">
                                 </div>
                                 <div class="form-group">
-                                    <label> Precio Unit. (C$)</label>
+                                    <label>💲 Precio Unit. (C$)</label>
                                     <input type="number" id="delPrecio" min="0" step="0.01" placeholder="0.00" required oninput="calcDelivery()" inputmode="decimal">
                                 </div>
                             </div>
@@ -989,12 +989,12 @@
                             </div>
                             
                             <div class="form-group">
-                                <label> Cuenta para Depósito</label>
+                                <label>🏦 Cuenta para Depósito</label>
                                 <input type="text" id="delCuenta" value="BAC Córdobas 373963446 Bernard Geovanny Vanegas" placeholder="Ej: BAC Córdobas 373963446 Bernard Geovanny Vanegas" required oninput="updateMessagePreview()">
                             </div>
                             
                             <div class="form-group">
-                                <label> Hora Límite de Pedido</label>
+                                <label>⏰ Hora Límite de Pedido</label>
                                 <input type="text" id="delHoraLimite" placeholder="Ej: antes del 1pm" value="antes del 1pm" oninput="updateMessagePreview()">
                             </div>
                             
@@ -1016,7 +1016,7 @@
                     <div>
                         <div class="panel" style="margin-bottom:15px;">
                             <div class="preview-header">
-                                <h4>️ Vista Previa del Mensaje</h4>
+                                <h4>👁️ Vista Previa del Mensaje</h4>
                                 <button class="btn btn-sm btn-secondary" onclick="copyMessage()" style="width:auto;">📋 Copiar</button>
                             </div>
                             <div class="preview-content" id="messagePreview">Completa el formulario para ver la vista previa del mensaje...</div>
@@ -1045,14 +1045,14 @@
             <section id="analisis" class="section">
                 <div class="analytics-filters">
                     <div class="filter-group">
-                        <label> Tipo de Vista</label>
+                        <label>📅 Tipo de Vista</label>
                         <select id="chartType" onchange="updateCharts()">
-                            <option value="daily">📅 Por Día</option>
-                            <option value="monthly"> Por Mes</option>
+                            <option value="daily"> Por Día</option>
+                            <option value="monthly">📆 Por Mes</option>
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label>📅 Fecha Inicio</label>
+                        <label> Fecha Inicio</label>
                         <input type="date" id="dateStart" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
@@ -1060,7 +1060,7 @@
                         <input type="date" id="dateEnd" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
-                        <label>️ Categoría</label>
+                        <label>🏷️ Categoría</label>
                         <select id="categoryFilter" onchange="updateCharts()">
                             <option value="">Todas</option>
                             <option value="Electrónica">Electrónica</option>
@@ -1074,7 +1074,7 @@
 
                 <div class="charts-grid">
                     <div class="chart-card">
-                        <div class="chart-header"><div class="chart-title"> Evolución de Ventas</div></div>
+                        <div class="chart-header"><div class="chart-title">📈 Evolución de Ventas</div></div>
                         <div class="chart-container"><canvas id="salesChart"></canvas></div>
                     </div>
                     <div class="chart-card">
@@ -1082,7 +1082,7 @@
                         <div class="chart-container"><canvas id="profitChart"></canvas></div>
                     </div>
                     <div class="chart-card">
-                        <div class="chart-header"><div class="chart-title">️ Ventas por Categoría</div></div>
+                        <div class="chart-header"><div class="chart-title">🏷️ Ventas por Categoría</div></div>
                         <div class="chart-container small"><canvas id="categoryChart"></canvas></div>
                     </div>
                     <div class="chart-card">
@@ -1109,7 +1109,7 @@
                 <div class="settings-panel">
                     <h2 style="text-align:center; color:#1a237e; margin-bottom:10px;">⚙️ Configuración</h2>
                     
-                    <h3 style="color:#1a237e; margin:20px 0 10px; font-size:1rem;"> Logo</h3>
+                    <h3 style="color:#1a237e; margin:20px 0 10px; font-size:1rem;">🎨 Logo</h3>
                     <div class="logo-preview" id="settingsLogoPreview">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="50" r="45" stroke="url(#g1)" stroke-width="3" fill="none"/>
@@ -1156,7 +1156,7 @@
                                 💾 Exportar
                             </button>
                             <button class="btn btn-primary" onclick="document.getElementById('importarFile').click()" style="flex:1; min-width:150px;">
-                                 Importar
+                                📥 Importar
                             </button>
                             <input type="file" id="importarFile" accept=".json" style="display:none" onchange="importarRespaldo(event)">
                         </div>
@@ -1217,6 +1217,33 @@
             }
         };
 
+        // ============ AUTO-CORRECCIÓN DE FECHAS AL CARGAR ============
+        function autoCorregirFechas() {
+            console.log('🔧 Verificando fechas...');
+            let corregidas = 0;
+            
+            sales.forEach(sale => {
+                if (!sale.date) return;
+                const original = sale.date;
+                const normalized = normalizeDate(sale.date);
+                
+                if (normalized && normalized !== original) {
+                    console.log(`   Corrigiendo: "${original}" → "${normalized}" (${sale.product})`);
+                    sale.date = normalized;
+                    corregidas++;
+                }
+            });
+            
+            if (corregidas > 0) {
+                localStorage.setItem('vanegas_sales', JSON.stringify(sales));
+                console.log(`✅ ${corregidas} fechas corregidas automáticamente.`);
+            } else {
+                console.log('✅ Todas las fechas están correctas.');
+            }
+            
+            return corregidas;
+        }
+
         // ============ PWA INSTALL ============
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -1239,7 +1266,7 @@
                 if (isIOS) {
                     alert('📱 Para instalar en iPhone:\n\n1. Toca el botón "Compartir" (cuadrado con flecha ↑)\n2. Selecciona "Agregar a pantalla de inicio"\n3. Toca "Agregar"');
                 } else {
-                    alert('📱 Para instalar en Android:\n\n1. Abre el menú del navegador (⋮)\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla principal"\n3. ¡Listo!');
+                    alert(' Para instalar en Android:\n\n1. Abre el menú del navegador (⋮)\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla principal"\n3. ¡Listo!');
                 }
             }
         }
@@ -1295,7 +1322,7 @@
         function saveWhatsappNumber() {
             const num = document.getElementById('whatsappNumber').value.trim();
             if (!num || num.length < 7) {
-                showToast('️ Ingresa un número válido (mínimo 7 dígitos)', 'error');
+                showToast('⚠️ Ingresa un número válido (mínimo 7 dígitos)', 'error');
                 return;
             }
             whatsappNumber = num.replace(/[^0-9]/g, '');
@@ -1356,6 +1383,9 @@
             document.getElementById('dateStart').value = thirtyDaysAgo.toISOString().split('T')[0];
             document.getElementById('dateEnd').value = getTodayStr();
             
+            // Auto-corregir fechas al iniciar
+            autoCorregirFechas();
+            
             renderTable();
             updateStats();
             initCharts();
@@ -1385,7 +1415,7 @@
             window.scrollTo(0, 0);
         }
 
-        // ============ DATE HELPERS ============
+        // ============ DATE HELPERS (CORREGIDOS) ============
         function formatDateLong(date) {
             return date.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
         }
@@ -1417,18 +1447,27 @@
             if (!dateStr) return '';
             dateStr = String(dateStr).trim();
             
+            // Ya está en formato YYYY-MM-DD
             if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
                 return dateStr;
             }
             
+            // Formato DD/MM/YYYY
             if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
                 const parts = dateStr.split('/');
                 return `${parts[2]}-${parts[1]}-${parts[0]}`;
             }
             
+            // Formato DD-MM-YYYY
             if (/^\d{2}-\d{2}-\d{4}$/.test(dateStr)) {
                 const parts = dateStr.split('-');
                 return `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+            
+            // Formato MM/DD/YYYY (americano)
+            if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
+                const parts = dateStr.split('/');
+                return `${parts[2]}-${parts[0]}-${parts[1]}`;
             }
             
             return dateStr;
@@ -1514,11 +1553,11 @@
 
             if (!pedido || !producto || !entrega) return '';
 
-            let msg = ` *ENVÍO - VANEGAS STORE*\n`;
+            let msg = `🚚 *ENVÍO - VANEGAS STORE*\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `📋 *Pedido:* ${pedido}\n`;
             msg += `👤 *Solicitante:* ${solicitante}\n`;
-            msg += ` *Producto:* ${producto}\n`;
+            msg += `📦 *Producto:* ${producto}\n`;
             msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `🚚 *Entrega a:* ${entrega}\n`;
@@ -1553,7 +1592,7 @@
         function sendToWhatsApp() {
             const msg = generateMessage();
             if (!msg) {
-                showToast('️ Completa los campos obligatorios del pedido', 'error');
+                showToast('⚠️ Completa los campos obligatorios del pedido', 'error');
                 return;
             }
 
@@ -1561,7 +1600,7 @@
             const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
             
             window.open(url, '_blank');
-            showToast('📱 Abriendo WhatsApp...', 'whatsapp');
+            showToast(' Abriendo WhatsApp...', 'whatsapp');
             
             saveDelivery(true);
         }
@@ -1581,7 +1620,7 @@
                 ta.select();
                 document.execCommand('copy');
                 document.body.removeChild(ta);
-                showToast(' Mensaje copiado', 'success');
+                showToast('📋 Mensaje copiado', 'success');
             });
         }
 
@@ -1604,7 +1643,7 @@
             const notas = document.getElementById('delNotas').value.trim();
 
             if (!pedido || !producto || !entrega) {
-                if (!fromWhatsapp) showToast('️ Completa los campos obligatorios', 'error');
+                if (!fromWhatsapp) showToast('⚠️ Completa los campos obligatorios', 'error');
                 return;
             }
 
@@ -1658,7 +1697,7 @@
             );
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="empty-state"><div class="icon"></div><p>No hay pedidos registrados</p></div>`;
+                container.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>No hay pedidos registrados</p></div>`;
                 return;
             }
 
@@ -1679,9 +1718,9 @@
                             <span class="dh-total">C$${d.total.toFixed(2)}</span>
                         </div>
                         <div style="margin-top:8px; display:flex; gap:5px; flex-wrap:wrap;">
-                            <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar"></button>
+                            <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar">📱</button>
                             <button class="btn-icon btn-edit" onclick="copyDeliveryMessage(${d.id})" title="Copiar">📋</button>
-                            <button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">🗑️</button>
+                            <button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">️</button>
                         </div>
                     </div>`;
             });
@@ -1699,11 +1738,11 @@
             let msg = `🚚 *ENVÍO - VANEGAS STORE*\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `📋 *Pedido:* ${d.pedido}\n`;
-            msg += `👤 *Solicitante:* ${d.solicitante}\n`;
+            msg += ` *Solicitante:* ${d.solicitante}\n`;
             msg += `📦 *Producto:* ${d.producto}\n`;
-            msg += ` *Cantidad:* ${cantidad} unidad(es)\n\n`;
+            msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-            msg += `🚚 *Entrega a:* ${d.entrega}\n`;
+            msg += ` *Entrega a:* ${d.entrega}\n`;
             msg += `📞 *Cel:* ${d.telefono}\n\n`;
             msg += `📍 *Dirección:*\n${d.direccion}\n`;
             if (d.casa) msg += `🏷️ *Casa:* ${d.casa}\n`;
@@ -1714,7 +1753,7 @@
             msg += `   • *Total a pagar: C$${d.total.toFixed(2)}*\n\n`;
             msg += `🏦 *Cuenta para depositar:*\n${d.cuenta}\n\n`;
             msg += `⏰ *Nota:* Cliente pide ${d.horaLimite}\n`;
-            if (d.notas) msg += `\n📝 *Notas:* ${d.notas}\n`;
+            if (d.notas) msg += `\n *Notas:* ${d.notas}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `🛒 *Vanegas Store* - Technology Products`;
 
@@ -1734,7 +1773,7 @@
             const cantidad = d.cantidad || 1;
             const subtotal = cantidad * d.precio;
             
-            let msg = `🚚 ENVÍO - VANEGAS STORE\n`;
+            let msg = ` ENVÍO - VANEGAS STORE\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `📋 Pedido: ${d.pedido}\n`;
             msg += `👤 Solicitante: ${d.solicitante}\n`;
@@ -1744,7 +1783,7 @@
             msg += `🚚 Entrega a: ${d.entrega}\n`;
             msg += ` Cel: ${d.telefono}\n\n`;
             msg += `📍 Dirección:\n${d.direccion}\n`;
-            if (d.casa) msg += `️ Casa: ${d.casa}\n`;
+            if (d.casa) msg += `🏷️ Casa: ${d.casa}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `💲 Desglose de Pago:\n`;
             msg += `   • Subtotal (${cantidad} x C$${d.precio.toFixed(2)}): C$${subtotal.toFixed(2)}\n`;
@@ -1754,7 +1793,7 @@
             msg += `⏰ Nota: Cliente pide ${d.horaLimite}\n`;
             if (d.notas) msg += `\n📝 Notas: ${d.notas}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-            msg += ` Vanegas Store - Technology Products`;
+            msg += `🛒 Vanegas Store - Technology Products`;
 
             navigator.clipboard.writeText(msg).then(() => {
                 showToast('📋 Mensaje copiado', 'success');
@@ -1836,8 +1875,6 @@
             clearForm(); 
             renderTable(); 
             updateStats();
-            
-            // ✅ NUEVO: Actualizar gráficos después de registrar venta
             updateCharts();
             
             if (document.getElementById('autoDelivery').checked) {
@@ -1909,7 +1946,7 @@
             });
 
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="icon"></div><p>No hay ventas registradas</p></div></td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="icon">📭</div><p>No hay ventas registradas</p></div></td></tr>`;
                 return;
             }
 
@@ -1944,8 +1981,15 @@
         }
 
         function updateStats() {
+            console.log('📊 Actualizando estadísticas...');
+            console.log('Total ventas:', sales.length);
+            console.log('Fecha de hoy:', getTodayStr());
+            
             const todaySales = sales.filter(s => isToday(s.date));
             const monthSales = sales.filter(s => isThisMonth(s.date));
+
+            console.log('Ventas de hoy:', todaySales.length);
+            console.log('Ventas del mes:', monthSales.length);
 
             const sum = (arr, field) => arr.reduce((sum, item) => sum + (item[field] || 0), 0);
 
@@ -1966,6 +2010,8 @@
             document.getElementById('statMonthCapital').textContent = 'C$' + monthCapital.toFixed(2);
             document.getElementById('statMonthProfit').textContent = 'C$' + monthProfit.toFixed(2);
             document.getElementById('statMonthCount').textContent = monthSales.length;
+            
+            console.log('✅ Estadísticas actualizadas');
         }
 
         function editSale(id) {
@@ -1997,7 +2043,7 @@
         }
 
         function confirmClearAll() {
-            if (sales.length === 0) { showToast('️ No hay ventas', 'info'); return; }
+            if (sales.length === 0) { showToast('ℹ️ No hay ventas', 'info'); return; }
             document.getElementById('modalTitle').textContent = '⚠️ Eliminar TODAS las Ventas';
             document.getElementById('modalMessage').textContent = `¿Eliminar las ${sales.length} ventas?`;
             document.getElementById('modalConfirmBtn').onclick = () => {
@@ -2040,7 +2086,7 @@
             ws['!cols'] = [{wch:5},{wch:12},{wch:15},{wch:25},{wch:10},{wch:12},{wch:12},{wch:15},{wch:15},{wch:15},{wch:20},{wch:25}];
             XLSX.utils.book_append_sheet(wb, ws, 'Ventas');
             XLSX.writeFile(wb, `Reporte_Ventas_${getTodayStr()}.xlsx`);
-            showToast('📊 Exportado', 'success');
+            showToast(' Exportado', 'success');
         }
 
         // ============ CHARTS ============
@@ -2159,7 +2205,6 @@
             ]};
             charts.capitalProfit.update();
 
-            // Actualizar gráfico de productos más vendidos con todos los datos
             updateTopProductsChart(sales);
 
             const tV = keys.reduce((s,k)=>s+grouped[k].v,0);
@@ -2177,7 +2222,6 @@
         }
 
         function updateTopProductsChart(filtered) {
-            // Si no hay datos filtrados, usar todos los datos
             const dataToUse = (filtered && filtered.length > 0) ? filtered : sales;
             
             const productData = {};
@@ -2315,7 +2359,7 @@
                     
                     const msg = `¿Restaurar respaldo del ${new Date(respaldo.fecha).toLocaleDateString('es-ES')}?\n\n` +
                                `📊 ${respaldo.datos.ventas.length} ventas\n` +
-                               ` ${respaldo.datos.pedidos.length} pedidos\n\n` +
+                               `🚚 ${respaldo.datos.pedidos.length} pedidos\n\n` +
                                `⚠️ Esto reemplazará los datos actuales.`;
                     
                     if (confirm(msg)) {
