@@ -678,7 +678,7 @@
             <div class="login-error" id="loginError">❌ Usuario o contraseña incorrectos</div>
             <form class="login-form" onsubmit="return handleLogin(event)">
                 <div class="form-group">
-                    <label for="username">👤 Usuario</label>
+                    <label for="username"> Usuario</label>
                     <input type="text" id="username" placeholder="Ingresa tu usuario" required>
                 </div>
                 <div class="form-group">
@@ -737,7 +737,7 @@
             </div>
             <div class="header-right">
                 <div class="header-date" id="headerDate"></div>
-                <button class="settings-btn" onclick="showSettings()">⚙️</button>
+                <button class="settings-btn" onclick="showSettings()">️</button>
                 <div class="user-info">
                     <div class="user-avatar" id="userAvatar">A</div>
                     <span id="userNameDisplay">Admin</span>
@@ -748,7 +748,7 @@
 
         <!-- NAVIGATION TABS -->
         <nav class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('registro', event)">📝 Ventas</button>
+            <button class="nav-tab active" onclick="switchTab('registro', event)"> Ventas</button>
             <button class="nav-tab" onclick="switchTab('pedidos', event)"> Pedidos</button>
             <button class="nav-tab" onclick="switchTab('analisis', event)">📊 Análisis</button>
         </nav>
@@ -789,7 +789,7 @@
                 </div>
 
                 <div class="monthly-summary">
-                    <div class="summary-title">📊 Resumen del Mes Actual</div>
+                    <div class="summary-title"> Resumen del Mes Actual</div>
                     <div class="summary-item">
                         <span class="label">💰 VENTAS DEL MES</span>
                         <span class="val ventas" id="statMonthSales">C$0.00</span>
@@ -810,7 +810,7 @@
 
                 <div class="panels">
                     <div class="panel">
-                        <div class="panel-title">📝 Registrar Venta</div>
+                        <div class="panel-title"> Registrar Venta</div>
                         <form id="saleForm" onsubmit="return false;">
                             <div class="form-group">
                                 <label>📅 Fecha</label>
@@ -850,7 +850,7 @@
                                 <input type="text" id="saleClient" placeholder="Nombre del cliente">
                             </div>
                             <div class="form-group">
-                                <label>📝 Notas (Opcional)</label>
+                                <label> Notas (Opcional)</label>
                                 <input type="text" id="saleNotes" placeholder="Observaciones...">
                             </div>
                             
@@ -878,7 +878,7 @@
                             </div>
                             <button type="button" class="btn btn-primary" onclick="registerSale()">✅ Registrar Venta</button>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="clearForm()" style="flex:1;">🔄 Limpiar</button>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="clearForm()" style="flex:1;"> Limpiar</button>
                             </div>
                         </form>
                     </div>
@@ -891,7 +891,7 @@
                         </div>
                         <div class="btn-group" style="margin-top:8px; margin-bottom:15px;">
                             <button class="btn btn-success btn-sm" onclick="exportToExcel()" style="flex:1;">📊 Excel</button>
-                            <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="flex:1;">🗑️ Limpiar</button>
+                            <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="flex:1;">️ Limpiar</button>
                         </div>
                         <div class="table-wrapper">
                             <table>
@@ -983,18 +983,18 @@
                                     <input type="number" id="delDelivery" min="0" step="0.01" placeholder="0.00" required oninput="calcDelivery()" inputmode="decimal">
                                 </div>
                                 <div class="form-group">
-                                    <label>💵 Total (C$)</label>
+                                    <label> Total (C$)</label>
                                     <input type="number" id="delTotal" min="0" step="0.01" placeholder="0.00" readonly style="background:#e8f5e9; font-weight:700; font-size:1.1rem; color:#2e7d32;">
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label>🏦 Cuenta para Depósito</label>
+                                <label> Cuenta para Depósito</label>
                                 <input type="text" id="delCuenta" value="BAC Córdobas 373963446 Bernard Geovanny Vanegas" placeholder="Ej: BAC Córdobas 373963446 Bernard Geovanny Vanegas" required oninput="updateMessagePreview()">
                             </div>
                             
                             <div class="form-group">
-                                <label>⏰ Hora Límite de Pedido</label>
+                                <label> Hora Límite de Pedido</label>
                                 <input type="text" id="delHoraLimite" placeholder="Ej: antes del 1pm" value="antes del 1pm" oninput="updateMessagePreview()">
                             </div>
                             
@@ -1016,7 +1016,7 @@
                     <div>
                         <div class="panel" style="margin-bottom:15px;">
                             <div class="preview-header">
-                                <h4>👁️ Vista Previa del Mensaje</h4>
+                                <h4>️ Vista Previa del Mensaje</h4>
                                 <button class="btn btn-sm btn-secondary" onclick="copyMessage()" style="width:auto;">📋 Copiar</button>
                             </div>
                             <div class="preview-content" id="messagePreview">Completa el formulario para ver la vista previa del mensaje...</div>
@@ -1045,10 +1045,10 @@
             <section id="analisis" class="section">
                 <div class="analytics-filters">
                     <div class="filter-group">
-                        <label>📅 Tipo de Vista</label>
+                        <label> Tipo de Vista</label>
                         <select id="chartType" onchange="updateCharts()">
                             <option value="daily">📅 Por Día</option>
-                            <option value="monthly">📆 Por Mes</option>
+                            <option value="monthly"> Por Mes</option>
                         </select>
                     </div>
                     <div class="filter-group">
@@ -1060,7 +1060,7 @@
                         <input type="date" id="dateEnd" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
-                        <label>🏷️ Categoría</label>
+                        <label>️ Categoría</label>
                         <select id="categoryFilter" onchange="updateCharts()">
                             <option value="">Todas</option>
                             <option value="Electrónica">Electrónica</option>
@@ -1074,7 +1074,7 @@
 
                 <div class="charts-grid">
                     <div class="chart-card">
-                        <div class="chart-header"><div class="chart-title">📈 Evolución de Ventas</div></div>
+                        <div class="chart-header"><div class="chart-title"> Evolución de Ventas</div></div>
                         <div class="chart-container"><canvas id="salesChart"></canvas></div>
                     </div>
                     <div class="chart-card">
@@ -1082,7 +1082,7 @@
                         <div class="chart-container"><canvas id="profitChart"></canvas></div>
                     </div>
                     <div class="chart-card">
-                        <div class="chart-header"><div class="chart-title">🏷️ Ventas por Categoría</div></div>
+                        <div class="chart-header"><div class="chart-title">️ Ventas por Categoría</div></div>
                         <div class="chart-container small"><canvas id="categoryChart"></canvas></div>
                     </div>
                     <div class="chart-card">
@@ -1295,7 +1295,7 @@
         function saveWhatsappNumber() {
             const num = document.getElementById('whatsappNumber').value.trim();
             if (!num || num.length < 7) {
-                showToast('⚠️ Ingresa un número válido (mínimo 7 dígitos)', 'error');
+                showToast('️ Ingresa un número válido (mínimo 7 dígitos)', 'error');
                 return;
             }
             whatsappNumber = num.replace(/[^0-9]/g, '');
@@ -1514,11 +1514,11 @@
 
             if (!pedido || !producto || !entrega) return '';
 
-            let msg = `🚚 *ENVÍO - VANEGAS STORE*\n`;
+            let msg = ` *ENVÍO - VANEGAS STORE*\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `📋 *Pedido:* ${pedido}\n`;
             msg += `👤 *Solicitante:* ${solicitante}\n`;
-            msg += `📦 *Producto:* ${producto}\n`;
+            msg += ` *Producto:* ${producto}\n`;
             msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `🚚 *Entrega a:* ${entrega}\n`;
@@ -1553,7 +1553,7 @@
         function sendToWhatsApp() {
             const msg = generateMessage();
             if (!msg) {
-                showToast('⚠️ Completa los campos obligatorios del pedido', 'error');
+                showToast('️ Completa los campos obligatorios del pedido', 'error');
                 return;
             }
 
@@ -1573,7 +1573,7 @@
                 return;
             }
             navigator.clipboard.writeText(msg).then(() => {
-                showToast('📋 Mensaje copiado al portapapeles', 'success');
+                showToast(' Mensaje copiado al portapapeles', 'success');
             }).catch(() => {
                 const ta = document.createElement('textarea');
                 ta.value = msg;
@@ -1658,7 +1658,7 @@
             );
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>No hay pedidos registrados</p></div>`;
+                container.innerHTML = `<div class="empty-state"><div class="icon"></div><p>No hay pedidos registrados</p></div>`;
                 return;
             }
 
@@ -1679,7 +1679,7 @@
                             <span class="dh-total">C$${d.total.toFixed(2)}</span>
                         </div>
                         <div style="margin-top:8px; display:flex; gap:5px; flex-wrap:wrap;">
-                            <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar">📱</button>
+                            <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar"></button>
                             <button class="btn-icon btn-edit" onclick="copyDeliveryMessage(${d.id})" title="Copiar">📋</button>
                             <button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">🗑️</button>
                         </div>
@@ -1701,7 +1701,7 @@
             msg += `📋 *Pedido:* ${d.pedido}\n`;
             msg += `👤 *Solicitante:* ${d.solicitante}\n`;
             msg += `📦 *Producto:* ${d.producto}\n`;
-            msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
+            msg += ` *Cantidad:* ${cantidad} unidad(es)\n\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `🚚 *Entrega a:* ${d.entrega}\n`;
             msg += `📞 *Cel:* ${d.telefono}\n\n`;
@@ -1714,7 +1714,7 @@
             msg += `   • *Total a pagar: C$${d.total.toFixed(2)}*\n\n`;
             msg += `🏦 *Cuenta para depositar:*\n${d.cuenta}\n\n`;
             msg += `⏰ *Nota:* Cliente pide ${d.horaLimite}\n`;
-            if (d.notas) msg += `\n *Notas:* ${d.notas}\n`;
+            if (d.notas) msg += `\n📝 *Notas:* ${d.notas}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `🛒 *Vanegas Store* - Technology Products`;
 
@@ -1744,7 +1744,7 @@
             msg += `🚚 Entrega a: ${d.entrega}\n`;
             msg += ` Cel: ${d.telefono}\n\n`;
             msg += `📍 Dirección:\n${d.direccion}\n`;
-            if (d.casa) msg += `🏷️ Casa: ${d.casa}\n`;
+            if (d.casa) msg += `️ Casa: ${d.casa}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `💲 Desglose de Pago:\n`;
             msg += `   • Subtotal (${cantidad} x C$${d.precio.toFixed(2)}): C$${subtotal.toFixed(2)}\n`;
@@ -1836,6 +1836,9 @@
             clearForm(); 
             renderTable(); 
             updateStats();
+            
+            // ✅ NUEVO: Actualizar gráficos después de registrar venta
+            updateCharts();
             
             if (document.getElementById('autoDelivery').checked) {
                 autoGenerateDelivery(sale);
@@ -1994,7 +1997,7 @@
         }
 
         function confirmClearAll() {
-            if (sales.length === 0) { showToast('ℹ️ No hay ventas', 'info'); return; }
+            if (sales.length === 0) { showToast('️ No hay ventas', 'info'); return; }
             document.getElementById('modalTitle').textContent = '⚠️ Eliminar TODAS las Ventas';
             document.getElementById('modalMessage').textContent = `¿Eliminar las ${sales.length} ventas?`;
             document.getElementById('modalConfirmBtn').onclick = () => {
@@ -2156,7 +2159,8 @@
             ]};
             charts.capitalProfit.update();
 
-            updateTopProductsChart(filtered);
+            // Actualizar gráfico de productos más vendidos con todos los datos
+            updateTopProductsChart(sales);
 
             const tV = keys.reduce((s,k)=>s+grouped[k].v,0);
             const tC = keys.reduce((s,k)=>s+grouped[k].c,0);
@@ -2173,9 +2177,12 @@
         }
 
         function updateTopProductsChart(filtered) {
+            // Si no hay datos filtrados, usar todos los datos
+            const dataToUse = (filtered && filtered.length > 0) ? filtered : sales;
+            
             const productData = {};
             
-            filtered.forEach(s => {
+            dataToUse.forEach(s => {
                 const key = s.product.toLowerCase().trim().replace(/\s+/g, ' ');
                 
                 if (!productData[key]) {
@@ -2238,7 +2245,7 @@
                 <div class="insight-item"><div class="insight-icon">📈</div><div class="insight-content"><div class="insight-label">Utilidad Total</div><div class="insight-value ${uc}">C$${d.tU.toFixed(2)}</div></div></div>
                 <div class="insight-item"><div class="insight-icon">📊</div><div class="insight-content"><div class="insight-label">Margen Promedio</div><div class="insight-value ${mc}">${d.mp.toFixed(2)}%</div></div></div>
                 <div class="insight-item"><div class="insight-icon">🏆</div><div class="insight-content"><div class="insight-label">Mejor Período</div><div class="insight-value">${d.bp} (C$${d.bv.toFixed(2)})</div></div></div>
-                <div class="insight-item"><div class="insight-icon"></div><div class="insight-content"><div class="insight-label">Producto Más Vendido</div><div class="insight-value">${d.tp} (${d.tq} uds)</div></div></div>`;
+                <div class="insight-item"><div class="insight-icon">🎯</div><div class="insight-content"><div class="insight-label">Producto Más Vendido</div><div class="insight-value">${d.tp} (${d.tq} uds)</div></div></div>`;
         }
 
         // ============ MODAL ============
