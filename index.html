@@ -444,27 +444,6 @@
             display: flex; align-items: center; gap: 8px;
         }
 
-        .chart-type-selector {
-            display: flex; gap: 5px; flex-wrap: wrap;
-        }
-
-        .chart-type-btn {
-            padding: 6px 12px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .chart-type-btn.active {
-            background: #1a237e;
-            color: white;
-            border-color: #1a237e;
-        }
-
         .chart-container { position: relative; height: 300px; }
         .chart-container.small { height: 250px; }
         .chart-container.large { height: 400px; }
@@ -675,7 +654,7 @@
         <nav class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('registro', event)">📝 Ventas</button>
             <button class="nav-tab" onclick="switchTab('pedidos', event)">🚚 Pedidos</button>
-            <button class="nav-tab" onclick="switchTab('analisis', event)"> Análisis</button>
+            <button class="nav-tab" onclick="switchTab('analisis', event)">📊 Análisis</button>
         </nav>
 
         <div class="container">
@@ -705,7 +684,7 @@
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon"></div>
+                        <div class="stat-icon">📦</div>
                         <div class="stat-info">
                             <h3>TRANSACCIONES</h3>
                             <div class="value" id="statTodayCount">0</div>
@@ -714,7 +693,7 @@
                 </div>
 
                 <div class="monthly-summary">
-                    <div class="summary-title">📊 Resumen del Mes Actual</div>
+                    <div class="summary-title"> Resumen del Mes Actual</div>
                     <div class="summary-item">
                         <span class="label">💰 VENTAS DEL MES</span>
                         <span class="val ventas" id="statMonthSales">C$0.00</span>
@@ -753,7 +732,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>📦 Producto</label>
+                                <label> Producto</label>
                                 <input type="text" id="saleProduct" placeholder="Nombre del producto" required>
                             </div>
                             <div class="form-row-3">
@@ -772,12 +751,12 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>🚚 Costo Delivery (C$) - Opcional</label>
+                                <label> Costo Delivery (C$) - Opcional</label>
                                 <input type="number" id="saleDelivery" min="0" step="0.01" placeholder="0.00" value="0">
                             </div>
 
                             <div class="form-group">
-                                <label> Cliente</label>
+                                <label>👤 Cliente</label>
                                 <input type="text" id="saleClient" placeholder="Nombre del cliente" required>
                             </div>
                             <div class="form-group">
@@ -799,7 +778,7 @@
                                     <span class="val" id="calcVenta">C$0.00</span>
                                 </div>
                                 <div class="total-line capital">
-                                    <span class="lbl"> Capital:</span>
+                                    <span class="lbl">💼 Capital:</span>
                                     <span class="val" id="calcCapital">C$0.00</span>
                                 </div>
                                 <div class="total-line" style="border-bottom: 1px dashed #ddd;">
@@ -860,7 +839,7 @@
                                 <label style="font-size:0.8rem;">Cambiar número:</label>
                                 <div style="display:flex; gap:8px;">
                                     <input type="text" id="whatsappNumber" placeholder="Ej: 50588888888" style="flex:1;">
-                                    <button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;">💾</button>
+                                    <button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;"></button>
                                 </div>
                             </div>
                         </div>
@@ -877,7 +856,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>📦 Descripción del Producto</label>
+                                <label> Descripción del Producto</label>
                                 <textarea id="delProducto" required oninput="updateMessagePreview()"></textarea>
                             </div>
                             
@@ -887,7 +866,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label> Teléfono de Entrega</label>
+                                <label>📞 Teléfono de Entrega</label>
                                 <input type="text" id="delTelefono" required oninput="updateMessagePreview()">
                             </div>
                             
@@ -897,13 +876,13 @@
                             </div>
                             
                             <div class="form-group">
-                                <label>🏷️ Casa / Identificación</label>
+                                <label>️ Casa / Identificación</label>
                                 <input type="text" id="delCasa" oninput="updateMessagePreview()">
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>🔢 Cantidad</label>
+                                    <label> Cantidad</label>
                                     <input type="number" id="delCantidad" min="1" value="1" required oninput="calcDelivery()">
                                 </div>
                                 <div class="form-group">
@@ -956,14 +935,14 @@
                         </div>
 
                         <div class="panel">
-                            <div class="panel-title">📋 Historial de Pedidos</div>
+                            <div class="panel-title"> Historial de Pedidos</div>
                             <div class="table-controls">
                                 <input type="text" class="search-box" id="deliverySearch" placeholder="🔍 Buscar..." oninput="renderDeliveryHistory()">
                             </div>
                             <div id="deliveryHistoryList">
                                 <div class="empty-state">
-                                    <div class="icon">📭</div>
-                                    <p>No hay pedidos registrados</p>
+                                    <div class="icon"></div>
+                                    <p>No hay pedidos</p>
                                 </div>
                             </div>
                         </div>
@@ -979,7 +958,7 @@
                         <input type="date" id="dateStart" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
-                        <label>📅 Fecha Fin</label>
+                        <label> Fecha Fin</label>
                         <input type="date" id="dateEnd" onchange="updateCharts()">
                     </div>
                     <div class="filter-group">
@@ -996,86 +975,25 @@
                 </div>
 
                 <div class="charts-grid">
-                    <!-- Gráfico 1: Evolución de Ventas con selector de tipo -->
                     <div class="chart-card" style="grid-column: 1 / -1;">
                         <div class="chart-header">
                             <div class="chart-title">📈 Evolución de Ventas</div>
-                            <div class="chart-type-selector">
-                                <button class="chart-type-btn active" onclick="changeChartType('salesEvolution', 'bar', this)">📊 Barras</button>
-                                <button class="chart-type-btn" onclick="changeChartType('salesEvolution', 'line', this)">📈 Líneas</button>
-                                <button class="chart-type-btn" onclick="changeChartType('salesEvolution', 'line', this, true)">🌊 Área</button>
-                            </div>
                         </div>
                         <div class="chart-container large"><canvas id="salesEvolutionChart"></canvas></div>
                     </div>
 
-                    <!-- Gráfico 2: Ventas por Categoría -->
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">🏷️ Ventas por Categoría</div>
-                            <div class="chart-type-selector">
-                                <button class="chart-type-btn active" onclick="changeChartType('categoryChart', 'pie', this)">🥧 Pastel</button>
-                                <button class="chart-type-btn" onclick="changeChartType('categoryChart', 'doughnut', this)">🍩 Dona</button>
-                                <button class="chart-type-btn" onclick="changeChartType('categoryChart', 'bar', this)">📊 Barras</button>
-                            </div>
                         </div>
                         <div class="chart-container"><canvas id="categoryChart"></canvas></div>
                     </div>
 
-                    <!-- Gráfico 3: Productos Más Vendidos -->
                     <div class="chart-card">
                         <div class="chart-header">
                             <div class="chart-title">🏆 Top Productos</div>
-                            <div class="chart-type-selector">
-                                <button class="chart-type-btn active" onclick="changeChartType('topProducts', 'bar', this)">📊 Horizontal</button>
-                                <button class="chart-type-btn" onclick="changeChartType('topProducts', 'bar', this, false, true)">📊 Vertical</button>
-                            </div>
                         </div>
                         <div class="chart-container"><canvas id="topProductsChart"></canvas></div>
-                    </div>
-
-                    <!-- Gráfico 4: Comparativa Capital vs Utilidad -->
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">💼 Capital vs Utilidad</div>
-                            <div class="chart-type-selector">
-                                <button class="chart-type-btn active" onclick="changeChartType('capitalProfit', 'bar', this)">📊 Barras</button>
-                                <button class="chart-type-btn" onclick="changeChartType('capitalProfit', 'line', this)">📈 Líneas</button>
-                            </div>
-                        </div>
-                        <div class="chart-container"><canvas id="capitalProfitChart"></canvas></div>
-                    </div>
-
-                    <!-- Gráfico 5: Margen de Ganancia por Producto -->
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">📊 Margen de Ganancia %</div>
-                            <div class="chart-type-selector">
-                                <button class="chart-type-btn active" onclick="changeChartType('marginChart', 'bar', this)">📊 Barras</button>
-                                <button class="chart-type-btn" onclick="changeChartType('marginChart', 'line', this)">📈 Líneas</button>
-                            </div>
-                        </div>
-                        <div class="chart-container"><canvas id="marginChart"></canvas></div>
-                    </div>
-
-                    <!-- Gráfico 6: Ventas por Cliente -->
-                    <div class="chart-card">
-                        <div class="chart-header">
-                            <div class="chart-title">👥 Ventas por Cliente</div>
-                            <div class="chart-type-selector">
-                                <button class="chart-type-btn active" onclick="changeChartType('clientChart', 'bar', this)">📊 Barras</button>
-                                <button class="chart-type-btn" onclick="changeChartType('clientChart', 'doughnut', this)">🍩 Dona</button>
-                            </div>
-                        </div>
-                        <div class="chart-container"><canvas id="clientChart"></canvas></div>
-                    </div>
-
-                    <!-- Gráfico 7: Radar Comparativo -->
-                    <div class="chart-card" style="grid-column: 1 / -1;">
-                        <div class="chart-header">
-                            <div class="chart-title">🎯 Análisis Multidimensional por Categoría</div>
-                        </div>
-                        <div class="chart-container"><canvas id="radarChart"></canvas></div>
                     </div>
                 </div>
 
@@ -1100,10 +1018,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label>📁 Seleccionar Logo</label>
+                        <label> Seleccionar Logo</label>
                         <div class="file-input-wrapper">
                             <input type="file" id="logoInput" accept="image/*" onchange="handleLogoUpload(event)">
-                            <label for="logoInput" class="file-input-label">📂 Haz clic para seleccionar imagen</label>
+                            <label for="logoInput" class="file-input-label"> Haz clic para seleccionar imagen</label>
                         </div>
                     </div>
 
@@ -1113,7 +1031,7 @@
                     </div>
 
                     <div class="backup-section">
-                        <h3 style="color:#e65100; margin-bottom:12px;"> Respaldo y Migración</h3>
+                        <h3 style="color:#e65100; margin-bottom:12px;">💾 Respaldo y Migración</h3>
                         <div style="display:flex; gap:8px; flex-wrap:wrap;">
                             <button class="btn btn-success" onclick="exportarRespaldo()" style="flex:1;">💾 Exportar</button>
                             <button class="btn btn-primary" onclick="document.getElementById('importarFile').click()" style="flex:1;">📥 Importar</button>
@@ -1157,14 +1075,6 @@
         let deliveries = JSON.parse(localStorage.getItem('vanegas_deliveries')) || [];
         let editingId = null;
         let charts = {};
-        let chartTypes = {
-            salesEvolution: 'bar',
-            categoryChart: 'pie',
-            topProducts: 'bar',
-            capitalProfit: 'bar',
-            marginChart: 'bar',
-            clientChart: 'bar'
-        };
         let currentUser = null;
         let customLogo = localStorage.getItem('vanegas_logo') || null;
         let whatsappNumber = localStorage.getItem('vanegas_whatsapp') || '50578923348';
@@ -1428,31 +1338,47 @@
             
             // ✅ CORRECCIÓN: Ahora sí verificar el checkbox (ya guardado)
             if (autoDeliveryChecked) {
+                console.log('🚚 Auto-delivery activado para:', sale);
                 autoGenerateDelivery(sale);
             }
         }
 
         // ============ AUTO-GENERATE DELIVERY (CORREGIDO) ============
         function autoGenerateDelivery(sale) {
-            console.log('🚚 Auto-generando delivery para:', sale);
+            console.log('🚚 Ejecutando autoGenerateDelivery...', sale);
             
             // Cambiar a pestaña de pedidos
             switchTabDirect('pedidos');
             
-            // Esperar un momento para que la pestaña esté visible
+            // Esperar a que la pestaña esté visible
             setTimeout(() => {
-                // Llenar los campos con los datos de la venta
-                document.getElementById('delProducto').value = sale.product;
-                document.getElementById('delCantidad').value = sale.quantity;
-                document.getElementById('delPrecio').value = sale.price;
-                document.getElementById('delDelivery').value = sale.delivery || 0;
+                console.log('📝 Llenando formulario de delivery...');
+                
+                // Verificar que los elementos existan
+                const delProducto = document.getElementById('delProducto');
+                const delCantidad = document.getElementById('delCantidad');
+                const delPrecio = document.getElementById('delPrecio');
+                const delDelivery = document.getElementById('delDelivery');
+                const delEntrega = document.getElementById('delEntrega');
+                const delNotas = document.getElementById('delNotas');
+                
+                if (!delProducto || !delCantidad || !delPrecio) {
+                    console.error(' No se encontraron los elementos del formulario');
+                    return;
+                }
+                
+                // Llenar los campos
+                delProducto.value = sale.product;
+                delCantidad.value = sale.quantity;
+                delPrecio.value = sale.price;
+                delDelivery.value = sale.delivery || 0;
                 
                 if (sale.client && sale.client !== '—' && sale.client !== 'Consumidor Final') {
-                    document.getElementById('delEntrega').value = sale.client;
+                    delEntrega.value = sale.client;
                 }
                 
                 if (sale.notes) {
-                    document.getElementById('delNotas').value = sale.notes;
+                    delNotas.value = sale.notes;
                 }
                 
                 // Calcular el total
@@ -1462,14 +1388,20 @@
                 updateMessagePreview();
                 
                 // Hacer scroll al formulario
-                document.getElementById('deliveryForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const deliveryForm = document.getElementById('deliveryForm');
+                if (deliveryForm) {
+                    deliveryForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
                 
                 // Enfocar el campo de dirección
                 setTimeout(() => {
-                    document.getElementById('delDireccion').focus();
+                    const delDireccion = document.getElementById('delDireccion');
+                    if (delDireccion) {
+                        delDireccion.focus();
+                    }
                 }, 500);
                 
-                showToast(' Datos de venta copiados al formulario de delivery', 'success');
+                showToast('✅ Datos copiados al formulario de delivery', 'success');
             }, 300);
         }
 
@@ -1576,12 +1508,12 @@
         }
 
         function confirmDelete(id) {
-            document.getElementById('modalTitle').textContent = '🗑️ Eliminar Venta';
+            document.getElementById('modalTitle').textContent = '️ Eliminar Venta';
             document.getElementById('modalMessage').textContent = '¿Eliminar esta venta?';
             document.getElementById('modalConfirmBtn').onclick = () => {
                 sales = sales.filter(s => s.id !== id);
                 saveSales(); renderTable(); updateStats(); updateCharts(); closeModal();
-                showToast('🗑️ Venta eliminada', 'error');
+                showToast('️ Venta eliminada', 'error');
             };
             document.getElementById('modalOverlay').classList.add('active');
         }
@@ -1592,7 +1524,7 @@
             document.getElementById('modalMessage').textContent = `¿Eliminar las ${sales.length} ventas?`;
             document.getElementById('modalConfirmBtn').onclick = () => {
                 sales = []; saveSales(); renderTable(); updateStats(); updateCharts(); closeModal();
-                showToast('️ Todas las ventas eliminadas', 'error');
+                showToast('🗑️ Todas las ventas eliminadas', 'error');
             };
             document.getElementById('modalOverlay').classList.add('active');
         }
@@ -1621,7 +1553,7 @@
             showToast('📊 Exportado', 'success');
         }
 
-        // ============ GENERAR FACTURA ============
+        // ============ GENERAR FACTURA (CORREGIDA) ============
         async function generarFactura(saleId) {
             const sale = sales.find(s => s.id === saleId);
             if (!sale) { showToast('❌ Venta no encontrada', 'error'); return; }
@@ -1636,6 +1568,7 @@
 
             const invoiceHTML = `
                 <div style="padding: 30px; max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif; background: white;">
+                    <!-- ENCABEZADO -->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid #1a237e;">
                         <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">
                             ${customLogo ? `<img src="${customLogo}" style="width: 100%; height: 100%; object-fit: cover;">` : '<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #00bcd4, #e91e63); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px;">VS</div>'}
@@ -1646,19 +1579,28 @@
                         </div>
                     </div>
 
+                    <!-- INFORMACIÓN DE FACTURA -->
                     <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                         <h2 style="color: #1a237e; margin: 0 0 10px 0;">FACTURA</h2>
-                        <p style="margin: 5px 0;"><strong>N° Factura:</strong> ${numeroFactura}</p>
-                        <p style="margin: 5px 0;"><strong>Fecha:</strong> ${formatDate(sale.date)}</p>
-                        <p style="margin: 5px 0;"><strong>Categoría:</strong> ${sale.category}</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div>
+                                <p style="margin: 5px 0;"><strong>N° Factura:</strong> ${numeroFactura}</p>
+                                <p style="margin: 5px 0;"><strong>Fecha:</strong> ${formatDate(sale.date)}</p>
+                            </div>
+                            <div>
+                                <p style="margin: 5px 0;"><strong>Usuario:</strong> ${sale.user || 'Admin'}</p>
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- DATOS DEL CLIENTE -->
                     <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #1565c0;">
                         <h3 style="color: #1565c0; margin: 0 0 10px 0;">👤 DATOS DEL CLIENTE</h3>
                         <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Nombre:</strong> ${nombreCliente}</p>
                         ${sale.notes ? `<p style="margin: 5px 0;"><strong>Notas:</strong> ${sale.notes}</p>` : ''}
                     </div>
 
+                    <!-- TABLA DE PRODUCTOS -->
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
                         <thead>
                             <tr style="background: #1a237e; color: white;">
@@ -1670,7 +1612,9 @@
                         </thead>
                         <tbody>
                             <tr style="border-bottom: 1px solid #e0e0e0;">
-                                <td style="padding: 12px;"><strong>${sale.product}</strong><br><small style="color: #666;">${sale.category}</small></td>
+                                <td style="padding: 12px;">
+                                    <strong>${sale.product}</strong>
+                                </td>
                                 <td style="padding: 12px; text-align: center;">${sale.quantity}</td>
                                 <td style="padding: 12px; text-align: right;">C$${sale.price.toFixed(2)}</td>
                                 <td style="padding: 12px; text-align: right; font-weight: bold;">C$${subtotal.toFixed(2)}</td>
@@ -1678,17 +1622,33 @@
                         </tbody>
                     </table>
 
-                    <div style="text-align: right;">
+                    <!-- TOTALES -->
+                    <div style="text-align: right; margin-top: 20px;">
                         <div style="display: inline-block; background: #f5f5f5; padding: 20px; border-radius: 8px; min-width: 300px;">
-                            <p style="margin: 8px 0; display: flex; justify-content: space-between;"><span>Subtotal:</span><span>C$${subtotal.toFixed(2)}</span></p>
-                            <p style="margin: 8px 0; display: flex; justify-content: space-between; color: #e65100;"><span> Costo Delivery:</span><span>C$${deliveryCost.toFixed(2)}</span></p>
-                            <p style="margin: 15px 0 5px 0; padding-top: 15px; border-top: 2px solid #1a237e; font-size: 1.3rem; font-weight: bold; color: #1a237e; display: flex; justify-content: space-between;"><span>TOTAL:</span><span>C$${totalFinal.toFixed(2)}</span></p>
+                            <p style="margin: 8px 0; display: flex; justify-content: space-between;">
+                                <span>Subtotal:</span>
+                                <span>C$${subtotal.toFixed(2)}</span>
+                            </p>
+                            <p style="margin: 8px 0; display: flex; justify-content: space-between; color: #e65100;">
+                                <span> Costo Delivery:</span>
+                                <span>C$${deliveryCost.toFixed(2)}</span>
+                            </p>
+                            <p style="margin: 8px 0; display: flex; justify-content: space-between;">
+                                <span>IVA (0%):</span>
+                                <span>C$0.00</span>
+                            </p>
+                            <p style="margin: 15px 0 5px 0; padding-top: 15px; border-top: 2px solid #1a237e; font-size: 1.3rem; font-weight: bold; color: #1a237e; display: flex; justify-content: space-between;">
+                                <span>TOTAL:</span>
+                                <span>C$${totalFinal.toFixed(2)}</span>
+                            </p>
                         </div>
                     </div>
 
+                    <!-- PIE DE PÁGINA -->
                     <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center; color: #666; font-size: 0.8rem;">
                         <p><strong>Vanegas Store - Technology Products</strong></p>
                         <p>Gracias por su compra, ${nombreCliente}</p>
+                        <p style="margin-top: 10px;">Esta factura fue generada electrónicamente</p>
                     </div>
                 </div>
             `;
@@ -1740,8 +1700,8 @@
             if (!pedido || !producto || !entrega) return '';
 
             let msg = `🚚 *ENVÍO - VANEGAS STORE*\n━━━━━━━━━━━━━━━━━━━━\n\n`;
-            msg += ` *Pedido:* ${pedido}\n👤 *Solicitante:* ${solicitante}\n *Producto:* ${producto}\n🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━\n\n *Entrega a:* ${entrega}\n📞 *Cel:* ${telefono}\n\n`;
+            msg += `📋 *Pedido:* ${pedido}\n👤 *Solicitante:* ${solicitante}\n📦 *Producto:* ${producto}\n🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
+            msg += `━━━━━━━━━━━━━━━━━━━━\n\n🚚 *Entrega a:* ${entrega}\n📞 *Cel:* ${telefono}\n\n`;
             msg += `📍 *Dirección:*\n${direccion}\n`;
             if (casa) msg += `🏷️ *Casa:* ${casa}\n`;
             msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n💲 *Desglose de Pago:*\n`;
@@ -1876,8 +1836,8 @@
             if (!d) return;
             let msg = `🚚 *ENVÍO - VANEGAS STORE*\n━━━━━━━━━━━━━━━━━━━━\n\n`;
             msg += `📋 *Pedido:* ${d.pedido}\n👤 *Solicitante:* ${d.solicitante}\n📦 *Producto:* ${d.producto}\n🔢 *Cantidad:* ${d.cantidad}\n\n`;
-            msg += ` *Entrega a:* ${d.entrega}\n📞 *Cel:* ${d.telefono}\n📍 *Dirección:* ${d.direccion}\n\n`;
-            msg += ` *Total:* C$${d.total.toFixed(2)}\n🏦 *Cuenta:* ${d.cuenta}`;
+            msg += `🚚 *Entrega a:* ${d.entrega}\n📞 *Cel:* ${d.telefono}\n📍 *Dirección:* ${d.direccion}\n\n`;
+            msg += `💲 *Total:* C$${d.total.toFixed(2)}\n🏦 *Cuenta:* ${d.cuenta}`;
             window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
             d.status = 'sent';
             localStorage.setItem('vanegas_deliveries', JSON.stringify(deliveries));
@@ -1898,7 +1858,7 @@
             charts.salesEvolution = new Chart(document.getElementById('salesEvolutionChart').getContext('2d'), {
                 type: 'bar',
                 data: { labels: [], datasets: [] },
-                options: getCommonOptions('C$')
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
             charts.categoryChart = new Chart(document.getElementById('categoryChart').getContext('2d'), {
@@ -1912,57 +1872,6 @@
                 data: { labels: [], datasets: [] },
                 options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
-
-            charts.capitalProfit = new Chart(document.getElementById('capitalProfitChart').getContext('2d'), {
-                type: 'bar',
-                data: { labels: [], datasets: [] },
-                options: getCommonOptions('C$')
-            });
-
-            charts.marginChart = new Chart(document.getElementById('marginChart').getContext('2d'), {
-                type: 'bar',
-                data: { labels: [], datasets: [] },
-                options: getCommonOptions('%')
-            });
-
-            charts.clientChart = new Chart(document.getElementById('clientChart').getContext('2d'), {
-                type: 'bar',
-                data: { labels: [], datasets: [] },
-                options: getCommonOptions('C$')
-            });
-
-            charts.radarChart = new Chart(document.getElementById('radarChart').getContext('2d'), {
-                type: 'radar',
-                data: { labels: [], datasets: [] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
-
-        function getCommonOptions(unit) {
-            return {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom' } },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { callback: v => unit === '%' ? v + '%' : 'C$' + v }
-                    }
-                }
-            };
-        }
-
-        // ============ CAMBIAR TIPO DE GRÁFICO ============
-        function changeChartType(chartName, newType, btn, fillArea = false, vertical = false) {
-            chartTypes[chartName] = newType;
-            
-            // Actualizar botones activos
-            const parent = btn.parentElement;
-            parent.querySelectorAll('.chart-type-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // Actualizar el gráfico
-            updateCharts();
         }
 
         function updateCharts() {
@@ -1986,27 +1895,21 @@
             const dailyData = {};
             filtered.forEach(s => {
                 const key = s.date;
-                if (!dailyData[key]) dailyData[key] = { ventas: 0, utilidad: 0, capital: 0 };
-                dailyData[key].ventas += s.ventaTotal;
-                dailyData[key].utilidad += s.utilidad;
-                dailyData[key].capital += s.capitalTotal;
+                if (!dailyData[key]) dailyData[key] = 0;
+                dailyData[key] += s.ventaTotal;
             });
 
             const sortedDays = Object.keys(dailyData).sort();
             const dayLabels = sortedDays.map(d => formatDate(d));
 
-            const salesEvolutionType = chartTypes.salesEvolution || 'bar';
-            charts.salesEvolution.config.type = salesEvolutionType;
             charts.salesEvolution.data = {
                 labels: dayLabels,
                 datasets: [{
                     label: 'Ventas (C$)',
-                    data: sortedDays.map(d => dailyData[d].ventas),
-                    backgroundColor: salesEvolutionType === 'line' ? 'rgba(21,101,192,0.1)' : 'rgba(21,101,192,0.7)',
+                    data: sortedDays.map(d => dailyData[d]),
+                    backgroundColor: 'rgba(21,101,192,0.7)',
                     borderColor: '#1565c0',
-                    borderWidth: 2,
-                    fill: salesEvolutionType === 'line',
-                    tension: 0.4
+                    borderWidth: 2
                 }]
             };
             charts.salesEvolution.update();
@@ -2018,8 +1921,6 @@
                 catData[s.category] += s.ventaTotal;
             });
 
-            const categoryType = chartTypes.categoryChart || 'pie';
-            charts.categoryChart.config.type = categoryType;
             charts.categoryChart.data = {
                 labels: Object.keys(catData),
                 datasets: [{
@@ -2033,149 +1934,21 @@
             const productData = {};
             filtered.forEach(s => {
                 const key = s.product.toLowerCase().trim();
-                if (!productData[key]) productData[key] = { nombre: s.product, cantidad: 0, ventas: 0 };
+                if (!productData[key]) productData[key] = { nombre: s.product, cantidad: 0 };
                 productData[key].cantidad += s.quantity;
-                productData[key].ventas += s.ventaTotal;
             });
 
             const topProducts = Object.values(productData).sort((a, b) => b.cantidad - a.cantidad).slice(0, 10);
-            
-            const topProductsType = chartTypes.topProducts || 'bar';
-            const topProductsVertical = false; // por defecto horizontal
-            
-            charts.topProducts.config.type = 'bar';
-            charts.topProducts.options.indexAxis = topProductsVertical ? 'x' : 'y';
+
             charts.topProducts.data = {
                 labels: topProducts.map(p => p.nombre),
                 datasets: [{
                     label: 'Unidades',
                     data: topProducts.map(p => p.cantidad),
-                    backgroundColor: topProducts.map((_, i) => ['#0d47a1','#1565c0','#1976d2','#1e88e5','#2196f3','#42a5f5','#64b5f6','#90caf9','#bbdefb','#e3f2fd'][i % 10])
+                    backgroundColor: ['#0d47a1','#1565c0','#1976d2','#1e88e5','#2196f3','#42a5f5','#64b5f6','#90caf9','#bbdefb','#e3f2fd']
                 }]
             };
             charts.topProducts.update();
-
-            // 4. Capital vs Utilidad
-            const capitalProfitType = chartTypes.capitalProfit || 'bar';
-            charts.capitalProfit.config.type = capitalProfitType;
-            charts.capitalProfit.data = {
-                labels: dayLabels,
-                datasets: [
-                    {
-                        label: 'Capital (C$)',
-                        data: sortedDays.map(d => dailyData[d].capital),
-                        backgroundColor: capitalProfitType === 'line' ? 'rgba(230,81,0,0.1)' : 'rgba(230,81,0,0.7)',
-                        borderColor: '#e65100',
-                        fill: capitalProfitType === 'line',
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Utilidad (C$)',
-                        data: sortedDays.map(d => dailyData[d].utilidad),
-                        backgroundColor: capitalProfitType === 'line' ? 'rgba(46,125,50,0.1)' : 'rgba(46,125,50,0.7)',
-                        borderColor: '#2e7d32',
-                        fill: capitalProfitType === 'line',
-                        tension: 0.4
-                    }
-                ]
-            };
-            charts.capitalProfit.update();
-
-            // 5. Margen de ganancia por producto
-            const marginData = {};
-            filtered.forEach(s => {
-                const key = s.product.toLowerCase().trim();
-                if (!marginData[key]) marginData[key] = { nombre: s.product, ventas: 0, utilidad: 0 };
-                marginData[key].ventas += s.ventaTotal;
-                marginData[key].utilidad += s.utilidad;
-            });
-
-            const marginProducts = Object.values(marginData).slice(0, 10);
-            const margins = marginProducts.map(p => p.ventas > 0 ? ((p.utilidad / p.ventas) * 100) : 0);
-
-            const marginType = chartTypes.marginChart || 'bar';
-            charts.marginChart.config.type = marginType;
-            charts.marginChart.data = {
-                labels: marginProducts.map(p => p.nombre),
-                datasets: [{
-                    label: 'Margen %',
-                    data: margins,
-                    backgroundColor: margins.map(m => m >= 30 ? '#2e7d32' : m >= 15 ? '#e65100' : '#c62828'),
-                    borderColor: '#1a237e',
-                    borderWidth: 1
-                }]
-            };
-            charts.marginChart.update();
-
-            // 6. Ventas por cliente
-            const clientData = {};
-            filtered.forEach(s => {
-                const client = s.client || 'Consumidor Final';
-                if (!clientData[client]) clientData[client] = 0;
-                clientData[client] += s.ventaTotal;
-            });
-
-            const topClients = Object.entries(clientData).sort((a, b) => b[1] - a[1]).slice(0, 8);
-            const clientType = chartTypes.clientChart || 'bar';
-            charts.clientChart.config.type = clientType;
-            charts.clientChart.data = {
-                labels: topClients.map(c => c[0]),
-                datasets: [{
-                    label: 'Ventas (C$)',
-                    data: topClients.map(c => c[1]),
-                    backgroundColor: clientType === 'doughnut' ? 
-                        ['#1565c0','#c62828','#2e7d32','#e65100','#7b1fa2','#00838f','#4e342e','#263238'] :
-                        'rgba(21,101,192,0.7)'
-                }]
-            };
-            charts.clientChart.update();
-
-            // 7. Radar comparativo por categoría
-            const radarCats = {};
-            filtered.forEach(s => {
-                if (!radarCats[s.category]) radarCats[s.category] = { ventas: 0, utilidad: 0, transacciones: 0, promedio: 0 };
-                radarCats[s.category].ventas += s.ventaTotal;
-                radarCats[s.category].utilidad += s.utilidad;
-                radarCats[s.category].transacciones += 1;
-            });
-
-            Object.keys(radarCats).forEach(cat => {
-                radarCats[cat].promedio = radarCats[cat].ventas / radarCats[cat].transacciones;
-            });
-
-            const radarLabels = Object.keys(radarCats);
-            const maxVentas = Math.max(...radarLabels.map(c => radarCats[c].ventas));
-            const maxUtilidad = Math.max(...radarLabels.map(c => radarCats[c].utilidad));
-            const maxTrans = Math.max(...radarLabels.map(c => radarCats[c].transacciones));
-            const maxProm = Math.max(...radarLabels.map(c => radarCats[c].promedio));
-
-            charts.radarChart.data = {
-                labels: radarLabels,
-                datasets: [
-                    {
-                        label: 'Ventas',
-                        data: radarLabels.map(c => maxVentas > 0 ? (radarCats[c].ventas / maxVentas) * 100 : 0),
-                        backgroundColor: 'rgba(21,101,192,0.2)',
-                        borderColor: '#1565c0',
-                        borderWidth: 2
-                    },
-                    {
-                        label: 'Utilidad',
-                        data: radarLabels.map(c => maxUtilidad > 0 ? (radarCats[c].utilidad / maxUtilidad) * 100 : 0),
-                        backgroundColor: 'rgba(46,125,50,0.2)',
-                        borderColor: '#2e7d32',
-                        borderWidth: 2
-                    },
-                    {
-                        label: 'Transacciones',
-                        data: radarLabels.map(c => maxTrans > 0 ? (radarCats[c].transacciones / maxTrans) * 100 : 0),
-                        backgroundColor: 'rgba(230,81,0,0.2)',
-                        borderColor: '#e65100',
-                        borderWidth: 2
-                    }
-                ]
-            };
-            charts.radarChart.update();
 
             // Insights
             updateInsights(filtered);
@@ -2251,7 +2024,7 @@
                     const respaldo = JSON.parse(e.target.result);
                     if (!respaldo.datos || !respaldo.datos.ventas) throw new Error('Archivo inválido');
                     
-                    if (confirm(`¿Restaurar respaldo?\n📊 ${respaldo.datos.ventas.length} ventas\n ${respaldo.datos.pedidos.length} pedidos`)) {
+                    if (confirm(`¿Restaurar respaldo?\n📊 ${respaldo.datos.ventas.length} ventas\n🚚 ${respaldo.datos.pedidos.length} pedidos`)) {
                         sales = respaldo.datos.ventas || [];
                         deliveries = respaldo.datos.pedidos || [];
                         customLogo = respaldo.datos.logo || null;
