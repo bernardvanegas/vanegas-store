@@ -101,6 +101,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 .btn-whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); color: white; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
 .btn-danger { background: linear-gradient(135deg, #e53935, #c62828); color: white; box-shadow: 0 4px 15px rgba(198,40,40,0.3); }
 .btn-secondary { background: #f5f5f5; color: #333; border: 2px solid #e0e0e0; }
+.btn-pdf { background: linear-gradient(135deg, #d32f2f, #b71c1c); color: white; box-shadow: 0 4px 15px rgba(211,47,47,0.3); }
 .btn-sm { padding: 8px 12px; font-size: 0.8rem; width: auto; }
 .btn-group { display: flex; gap: 8px; margin-top: 12px; }
 .delivery-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
@@ -271,6 +272,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 </div>
 </div>
 </div>
+
 <div class="main-app" id="mainApp">
 <div class="install-banner" id="installBanner" style="display:none;">
 <p>📱 Instala Vanegas Store en tu teléfono</p>
@@ -317,16 +319,18 @@ tbody td { padding: 8px; white-space: nowrap; }
 <button class="logout-btn" onclick="logout()">🚪</button>
 </div>
 </header>
+
 <nav class="nav-tabs">
 <button class="nav-tab active" onclick="switchTab('registro', event)">📝 Ventas</button>
 <button class="nav-tab" onclick="switchTab('pedidos', event)">🚚 Pedidos</button>
 <button class="nav-tab" onclick="switchTab('analisis', event)">📊 Análisis</button>
 </nav>
+
 <div class="container">
 <section id="registro" class="section active">
 <div class="stats-row">
 <div class="stat-card">
-<div class="stat-icon"></div>
+<div class="stat-icon">💰</div>
 <div class="stat-info">
 <h3>VENTAS DEL DÍA</h3>
 <div class="value" id="statTodaySales">C$0.00</div>
@@ -378,7 +382,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <div class="panel-title">📝 Registrar Venta</div>
 <form id="saleForm" onsubmit="return false;">
 <div class="form-group">
-<label> Fecha</label>
+<label>📅 Fecha</label>
 <input type="date" id="saleDate" required>
 </div>
 <div class="form-group">
@@ -389,7 +393,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <option value="Ropa">👕 Ropa</option>
 <option value="Alimentos">🍎 Alimentos</option>
 <option value="Hogar">🏠 Hogar</option>
-<option value="Otros"> Otros</option>
+<option value="Otros">📦 Otros</option>
 </select>
 </div>
 <div class="form-group">
@@ -411,7 +415,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 </div>
 </div>
 <div class="form-group">
-<label> Costo Delivery (C$) - Opcional</label>
+<label>🚚 Costo Delivery (C$) - Opcional</label>
 <input type="number" id="saleDelivery" min="0" step="0.01" placeholder="0.00" value="0" inputmode="decimal">
 </div>
 <div class="form-group">
@@ -460,7 +464,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <input type="date" class="date-filter" id="dateFilter" onchange="renderTable()">
 </div>
 <div class="btn-group" style="margin-top:8px; margin-bottom:15px;">
-<button class="btn btn-success btn-sm" onclick="exportToExcel()" style="flex:1;"> Excel</button>
+<button class="btn btn-success btn-sm" onclick="exportToExcel()" style="flex:1;">📊 Excel</button>
 <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="flex:1;">🗑️ Limpiar</button>
 </div>
 <div class="table-wrapper">
@@ -478,6 +482,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 </div>
 </div>
 </section>
+
 <section id="pedidos" class="section">
 <div class="delivery-grid">
 <div class="panel">
@@ -492,7 +497,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <label style="font-size:0.8rem;">Cambiar número (con código de país, sin + ni espacios):</label>
 <div style="display:flex; gap:8px;">
 <input type="text" id="whatsappNumber" placeholder="Ej: 50588888888" style="flex:1;" inputmode="numeric">
-<button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;"></button>
+<button class="btn btn-sm btn-success" onclick="saveWhatsappNumber()" style="width:auto;">💾</button>
 </div>
 </div>
 </div>
@@ -567,8 +572,8 @@ tbody td { padding: 8px; white-space: nowrap; }
 <div>
 <div class="panel" style="margin-bottom:15px;">
 <div class="preview-header">
-<h4>️ Vista Previa del Mensaje</h4>
-<button class="btn btn-sm btn-secondary" onclick="copyMessage()" style="width:auto;"> Copiar</button>
+<h4>👁️ Vista Previa del Mensaje</h4>
+<button class="btn btn-sm btn-secondary" onclick="copyMessage()" style="width:auto;">📋 Copiar</button>
 </div>
 <div class="preview-content" id="messagePreview">Completa el formulario para ver la vista previa del mensaje...</div>
 </div>
@@ -590,6 +595,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 </div>
 </div>
 </section>
+
 <section id="analisis" class="section">
 <div class="analytics-filters">
 <div class="filter-group">
@@ -622,7 +628,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <div class="charts-grid">
 <div class="chart-card" style="grid-column: 1 / -1;">
 <div class="chart-header">
-<div class="chart-title"> Dashboard de Ventas - Utilización y Capacidad</div>
+<div class="chart-title">📊 Dashboard de Ventas - Utilización y Capacidad</div>
 </div>
 <div class="chart-container large"><canvas id="dashboardChart"></canvas></div>
 </div>
@@ -631,7 +637,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <div class="chart-container"><canvas id="salesChart"></canvas></div>
 </div>
 <div class="chart-card">
-<div class="chart-header"><div class="chart-title"> Evolución de Utilidades</div></div>
+<div class="chart-header"><div class="chart-title">💰 Evolución de Utilidades</div></div>
 <div class="chart-container"><canvas id="profitChart"></canvas></div>
 </div>
 <div class="chart-card">
@@ -654,6 +660,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <div id="insightsContent"></div>
 </div>
 </section>
+
 <section id="configuracion" class="section">
 <div class="settings-panel">
 <h2 style="text-align:center; color:#1a237e; margin-bottom:10px;">⚙️ Configuración</h2>
@@ -691,7 +698,7 @@ tbody td { padding: 8px; white-space: nowrap; }
 <p style="color:#666; margin-bottom:12px; font-size:0.85rem;">Exporta todos tus datos para trasladarlos a otra computadora o hacer respaldo.</p>
 <div style="display:flex; gap:8px; flex-wrap:wrap;">
 <button class="btn btn-success" onclick="exportarRespaldo()" style="flex:1; min-width:150px;">💾 Exportar</button>
-<button class="btn btn-primary" onclick="document.getElementById('importarFile').click()" style="flex:1; min-width:150px;"> Importar</button>
+<button class="btn btn-primary" onclick="document.getElementById('importarFile').click()" style="flex:1; min-width:150px;">📥 Importar</button>
 <input type="file" id="importarFile" accept=".json" style="display:none" onchange="importarRespaldo(event)">
 </div>
 </div>
@@ -702,7 +709,9 @@ tbody td { padding: 8px; white-space: nowrap; }
 <p>© 2026 <strong>Vanegas Store</strong> — Sistema de Registro de Ventas y Pedidos</p>
 </div>
 </div>
+
 <div id="invoiceContainer" class="invoice-container"></div>
+
 <div class="modal-overlay" id="modalOverlay">
 <div class="modal">
 <h3 id="modalTitle">⚠️ Confirmar acción</h3>
@@ -713,7 +722,9 @@ tbody td { padding: 8px; white-space: nowrap; }
 </div>
 </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
 const USERS = { 'admin': 'admin123', 'vanegas': 'store2026', 'usuario': 'password' };
 let sales = JSON.parse(localStorage.getItem('vanegas_sales')) || [];
@@ -774,9 +785,9 @@ document.getElementById('installBanner').style.display = 'none';
 } else {
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 if (isIOS) {
-alert('📱 Para instalar en iPhone:\n\n1. Toca el botón "Compartir" (cuadrado con flecha ↑)\n2. Selecciona "Agregar a pantalla de inicio"\n3. Toca "Agregar"');
+alert('📱 Para instalar en iPhone:\n1. Toca el botón "Compartir"\n2. Selecciona "Agregar a pantalla de inicio"\n3. Toca "Agregar"');
 } else {
-alert('📱 Para instalar en Android:\n\n1. Abre el menú del navegador (⋮)\n2. Selecciona "Instalar aplicación" o "Agregar a pantalla principal"\n3. ¡Listo!');
+alert('📱 Para instalar en Android:\n1. Abre el menú del navegador\n2. Selecciona "Instalar aplicación"\n3. ¡Listo!');
 }
 }
 }
@@ -1004,7 +1015,6 @@ document.getElementById('calcTotalFinal').textContent = 'C$' + totalFinal.toFixe
 document.getElementById('calcUtilidad').textContent = 'C$' + u.toFixed(2);
 document.getElementById('calcUtilidad').style.color = u < 0 ? '#c62828' : '#2e7d32';
 }
-
 document.getElementById('saleQuantity').addEventListener('input', calcTotals);
 document.getElementById('salePrice').addEventListener('input', calcTotals);
 document.getElementById('saleCost').addEventListener('input', calcTotals);
@@ -1042,10 +1052,10 @@ msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 msg += `📋 *Pedido:* ${pedido}\n`;
 msg += `👤 *Solicitante:* ${solicitante}\n`;
 msg += `📦 *Producto:* ${producto}\n`;
-msg += ` *Cantidad:* ${cantidad} unidad(es)\n\n`;
+msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
 msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 msg += `🚚 *Entrega a:* ${entrega}\n`;
-msg += ` *Cel:* ${telefono}\n\n`;
+msg += `📞 *Cel:* ${telefono}\n\n`;
 msg += `📍 *Dirección:*\n${direccion}\n`;
 if (casa) msg += `🏷️ *Casa:* ${casa}\n`;
 msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
@@ -1074,7 +1084,7 @@ if (el) el.addEventListener('input', updateMessagePreview);
 function sendToWhatsApp() {
 const msg = generateMessage();
 if (!msg) {
-showToast('️ Completa los campos obligatorios del pedido', 'error');
+showToast('⚠️ Completa los campos obligatorios del pedido', 'error');
 return;
 }
 const encodedMsg = encodeURIComponent(msg);
@@ -1087,7 +1097,7 @@ saveDelivery(true);
 function copyMessage() {
 const msg = generateMessage();
 if (!msg) {
-showToast('️ No hay mensaje para copiar', 'error');
+showToast('⚠️ No hay mensaje para copiar', 'error');
 return;
 }
 navigator.clipboard.writeText(msg).then(() => {
@@ -1099,7 +1109,7 @@ document.body.appendChild(ta);
 ta.select();
 document.execCommand('copy');
 document.body.removeChild(ta);
-showToast(' Mensaje copiado', 'success');
+showToast('📋 Mensaje copiado', 'success');
 });
 }
 
@@ -1181,15 +1191,15 @@ html += `
 ${d.status === 'sent' ? '✅ Enviado' : '⏳ Pendiente'}
 </span>
 </div>
-<div class="dh-product"> ${d.producto}${cantidadText}</div>
+<div class="dh-product">📦 ${d.producto}${cantidadText}</div>
 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:5px;">
-<span class="dh-date"> ${formatDate(d.date)} ${d.time || ''} | 📞 ${d.telefono}</span>
+<span class="dh-date">📅 ${formatDate(d.date)} ${d.time || ''} | 📞 ${d.telefono}</span>
 <span class="dh-total">C$${d.total.toFixed(2)}</span>
 </div>
 <div style="margin-top:8px; display:flex; gap:5px; flex-wrap:wrap;">
 <button class="btn-icon btn-edit" onclick="resendDelivery(${d.id})" title="Reenviar">📱</button>
 <button class="btn-icon btn-edit" onclick="copyDeliveryMessage(${d.id})" title="Copiar">📋</button>
-<button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">️</button>
+<button class="btn-icon btn-delete" onclick="deleteDelivery(${d.id})" title="Eliminar">🗑️</button>
 </div>
 </div>`;
 });
@@ -1201,17 +1211,17 @@ const d = deliveries.find(x => x.id === id);
 if (!d) return;
 const cantidad = d.cantidad || 1;
 const subtotal = cantidad * d.precio;
-let msg = ` *ENVÍO - VANEGAS STORE*\n`;
+let msg = `🚚 *ENVÍO - VANEGAS STORE*\n`;
 msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 msg += `📋 *Pedido:* ${d.pedido}\n`;
 msg += `👤 *Solicitante:* ${d.solicitante}\n`;
-msg += ` *Producto:* ${d.producto}\n`;
+msg += `📦 *Producto:* ${d.producto}\n`;
 msg += `🔢 *Cantidad:* ${cantidad} unidad(es)\n\n`;
 msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 msg += `🚚 *Entrega a:* ${d.entrega}\n`;
 msg += `📞 *Cel:* ${d.telefono}\n\n`;
 msg += `📍 *Dirección:*\n${d.direccion}\n`;
-if (d.casa) msg += `️ *Casa:* ${d.casa}\n`;
+if (d.casa) msg += `🏷️ *Casa:* ${d.casa}\n`;
 msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
 msg += `💲 *Desglose de Pago:*\n`;
 msg += `   • Subtotal (${cantidad} x C$${d.precio.toFixed(2)}): C$${subtotal.toFixed(2)}\n`;
@@ -1243,7 +1253,7 @@ msg += `📦 Producto: ${d.producto}\n`;
 msg += `🔢 Cantidad: ${cantidad} unidad(es)\n\n`;
 msg += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 msg += `🚚 Entrega a: ${d.entrega}\n`;
-msg += ` Cel: ${d.telefono}\n\n`;
+msg += `📞 Cel: ${d.telefono}\n\n`;
 msg += `📍 Dirección:\n${d.direccion}\n`;
 if (d.casa) msg += `🏷️ Casa: ${d.casa}\n`;
 msg += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
@@ -1276,7 +1286,7 @@ document.getElementById('modalOverlay').classList.add('active');
 
 function confirmClearDeliveries() {
 if (deliveries.length === 0) {
-showToast('️ No hay pedidos para eliminar', 'info');
+showToast('ℹ️ No hay pedidos para eliminar', 'info');
 return;
 }
 document.getElementById('modalTitle').textContent = '⚠️ Eliminar TODOS los Pedidos';
@@ -1307,7 +1317,7 @@ const delivery = parseFloat(document.getElementById('saleDelivery').value) || 0;
 const client = document.getElementById('saleClient').value.trim() || '—';
 const notes = document.getElementById('saleNotes').value.trim();
 if (!date || !category || !product || !quantity || isNaN(price) || isNaN(cost)) {
-showToast('️ Completa todos los campos obligatorios', 'error');
+showToast('⚠️ Completa todos los campos obligatorios', 'error');
 return;
 }
 const vt = quantity * price;
@@ -1401,7 +1411,7 @@ const db = normalizeDate(b.date);
 return db.localeCompare(da) || b.id - a.id;
 });
 if (filtered.length === 0) {
-tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><div class="icon"></div><p>No hay ventas registradas</p></div></td></tr>`;
+tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><div class="icon">📭</div><p>No hay ventas registradas</p></div></td></tr>`;
 return;
 }
 let html = '', totV = 0, totC = 0, totU = 0, totD = 0;
@@ -1585,7 +1595,7 @@ ${customLogo ? `<img src="${customLogo}" style="width: 100%; height: 100%; objec
 <div style="text-align: right; margin-top: 20px;">
 <div style="display: inline-block; background: #f5f5f5; padding: 20px; border-radius: 8px; min-width: 300px;">
 <p style="margin: 5px 0;">Subtotal: C$${subtotal.toFixed(2)}</p>
-<p style="margin: 5px 0; color: #e65100;">🚚 Delivery: C$${deliveryCost.toFixed(2)}</p>
+${deliveryCost > 0 ? `<p style="margin: 5px 0; color: #e65100;">🚚 Delivery: C$${deliveryCost.toFixed(2)}</p>` : ''}
 <p style="margin: 5px 0;">IVA (0%): C$0.00</p>
 <p style="margin: 15px 0 5px 0; padding-top: 15px; border-top: 2px solid #1a237e; font-size: 1.3rem; font-weight: bold; color: #1a237e;">
 TOTAL: C$${totalFinal.toFixed(2)}
